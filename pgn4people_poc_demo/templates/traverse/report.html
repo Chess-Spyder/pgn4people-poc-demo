@@ -1,0 +1,114 @@
+{% extends "site_template.html" %}
+
+{% block page_title %}pgn4people:Game Tree Report{% endblock page_title %}
+
+{% block body_content %}
+<div class="variations_table_title"><h1>Report about the game tree corresponding to the current PGN file</h1></div>
+
+
+<div class="report-summary">
+    <h2 class="report-component">Summary of Statistics for this Game Tree</h2>
+    <table class="report-summary report-component">
+        <tr class="report-summary-item">
+            <td class="report-summary-item-description">Number of lines:</td>
+            <td class="report-summary-item-value">{{ game_tree_report.number_of_lines }}</td>
+        </tr>
+        <tr class="report-summary-item">
+            <td class="report-summary-item-description">Number of positions:</td>
+            <td class="report-summary-item-value">{{ game_tree_report.number_of_nodes }}</td>
+        </tr>
+        <tr class="report-summary-item">
+            <td class="report-summary-item-description">Longest line (halfmoves):<sup>†</sup></td>
+            <td class="report-summary-item-value">{{ game_tree_report.max_halfmove_length_of_a_line }}</td>
+        </tr>
+        <tr class="report-summary-item">
+            <td class="report-summary-item-description">Greatest depth:<sup>‡</sup></td>
+            <td class="report-summary-item-value">{{ game_tree_report.max_depth_of_a_line }}</td>
+        </tr>
+    </table>
+    <div class="table-note">
+        <p><sup>†</sup>The length of a line is the number of halfmoves from and including White’s first move to the last move of the line.</p>
+        <p> <sup>‡</sup>“Depth” of a line is the number of deviations from mainline continuations required to arrive at the line’s terminal position.</p>
+    </div>
+</div>
+
+<div class="depth-histogram">
+    <h2 class="depth-histogram report-component">Frequency of Variations by Depth</h2>
+    <table class="depth-histogram">
+        <tr class="depth-histogram-header">
+            <th class="depth-histogram-header-depth">Depth<sup>†</sup></th>
+            <th class="depth-histogram-header-frequency">Frequency</th>
+        </tr>
+
+        {% for key, value in game_tree_report.depth_histogram | dictsort  %}
+        <tr class="depth-histogram-item">
+            <td class="depth-histogram-item-depth">
+                {{ key }}
+            </td>
+            <td class="depth-histogram-item-frequency">
+                {{ value }}
+            </td>
+        </tr>
+        {% endfor   %}
+        <tr class="depth-histogram-item">
+            <td class="depth-histogram-item-depth">
+                Total
+            </td>
+            <td class="depth-histogram-item-frequency">
+                {{ sum_of_depth_histogram_frequencies }}
+            </td>
+        </tr>
+    </table>
+    <div class="table-note">
+        <p> <sup>†</sup>“Depth” of a line is the number of deviations from mainline continuations required to arrive at the line’s terminal position.</p>
+    </div>
+</div>
+
+<div class="length-histogram">
+    <h2 class="length-histogram report-component">Frequency of Variations by Their Halfmove Length</h2>
+    <table class="length-histogram">
+        <tr class="length-histogram-header">
+            <th class="length-histogram-header-length">Halfmove length<sup>†</sup></th>
+            <th class="length-histogram-header-frequency">Frequency</th>
+        </tr>
+
+        {% for key, value in game_tree_report.halfmove_length_histogram | dictsort  %}
+        <tr class="length-histogram-item">
+            <td class="length-histogram-item-length">
+                {{ key }}
+            </td>
+            <td class="length-histogram-item-frequency">
+                {{ value }}
+            </td>
+        </tr>
+        {% endfor   %}
+        <tr class="length-histogram-item">
+            <td class="length-histogram-item-length">
+                Total
+            </td>
+            <td class="length-histogram-item-frequency">
+                {{ sum_of_length_histogram_frequencies }}
+            </td>
+        </tr>
+    </table>
+    <div class="table-note">
+        <p><sup>†</sup>The halfmove length of a line is the number of halfmoves from and including White’s first move to
+            the last move of the line.</p>
+    </div>
+</div>
+
+
+
+<!-- <div class="development">
+
+    <div class = "under-contruction-banner">
+        <p class="under-construction-text">Under Construction! Please be patient…</p>
+        <img src="{{ url_for('static', filename='assets/images/under_construction.png') }}" alt="Under Construction!" />
+    </div>
+
+    <div class="development-promote-option">Here is the report output: ssdfsdfsdf</div>
+</div> -->
+
+
+
+{% endblock body_content %}

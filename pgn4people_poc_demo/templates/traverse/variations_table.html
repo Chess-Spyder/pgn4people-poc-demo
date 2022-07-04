@@ -1,0 +1,29 @@
+{% extends "site_template.html" %}
+
+{% block page_title %}pgn4people: Variations Table{% endblock page_title %}
+
+
+{% block body_content %}
+<div class="variations_table_title"><h1>Variations Table</h1></div>
+
+<div class="development">
+
+<table class="variations-table">
+    <tr>
+        <!-- Reset icon: Fabián Alexis, cropped by Prenn, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons https://commons.wikimedia.org/wiki/File:Flat_restart_icon.svg -->
+        <th><a  href="/node/0" title="Reset to initial position"><img width="30em" alt="Flat restart icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flat_restart_icon.svg/512px-Flat_restart_icon.svg.png"></a></th>
+        <th colspan="2">Main Line</th>
+        <th colspan="8">Alternative Moves</th>
+    </tr>
+    <tr class="variations-table-instruction-row">
+        <th colspan="3"></th>
+        <th colspan="8">💡 <span class="variations-table-instruction-row">Click on an alternative to explore a different variation</span></th>
+    </tr>
+
+    {% for row in list_of_rows_for_variations_table  %}
+        {{ row | safe }}
+    {% endfor %}
+</table>
+</div>
+
+{% endblock body_content %}

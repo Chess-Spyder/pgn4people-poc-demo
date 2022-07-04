@@ -1,0 +1,336 @@
+:root{
+    --color-international-orange: rgb(255 79 0);
+
+    /* See https://sashamaps.net/docs/resources/20-colors/ */
+    --color-level-0: Black;
+    --color-level-1: #e6194B;
+    --color-level-2: #3cb44b;
+    --color-level-3: #4363d8;   
+    --color-level-4: #f58231; 
+    --color-level-5: #42d4f4;
+    --color-level-6: #f032e6;
+    --color-level-7: #800000;
+    --color-level-8: #469990;
+    --color-level-9: #dcbeff;
+    --color-level-10: #9A6324;
+
+    --color-backround-page: ghostwhite  ;
+    --color-background-flashes: lightpink ;
+    --color-background-footer: blue;
+    --color-background-move-white: var(--color-background-page);
+    --color-background-move-black: rgba(20, 20, 20, 0.1);
+
+    --color-text-footer: white;
+    --color-text-under-construction: var(--color-international-orange);
+
+    --fontsize-under-construction: xxx-large;
+
+    --width-site-logo: 40%;
+    --width-construction-banner: 40%;
+
+    --padding-div-footer: 5px;
+}
+/* Outline all elements for debugging purposes */
+* { outline: 1px solid red; }
+
+div.flashes {
+    background-color: var(--color-background-flashes);
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: larger;
+}
+
+body {
+    background-color: var( --color-backround-page);
+  }
+
+table.report-component {
+    table-layout: auto;
+    /* width: 100%; */
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+div.report-summary {
+    width: 100%;
+}
+
+table.report-summary {
+    table-layout: auto;
+    /* width: 100%; */
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+h2.report-component {
+    text-align: center;
+}
+
+td.report-summary-empty-buffer-left {
+    width: 8em;
+}
+
+td.report-summary-empty-buffer-right {
+    width: 8em;
+}
+
+td.report-summary-item-description {
+    white-space: nowrap;
+    text-align: right;
+    width: 12em;
+    height: 1.5em;
+}
+
+td.report-summary-item-value {
+    text-align: right;
+    width: 3em;
+}
+
+
+div.table-note {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+th.depth-histogram-header-depth {
+    text-align: center;
+}
+
+table.depth-histogram {
+    table-layout: auto;
+    /* width: 100%; */
+    border-collapse: separate;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+th.depth-histogram-header-depth {
+    min-width: 7em;
+    text-align: right;
+}
+
+th.depth-histogram-header-frequency {
+    min-width: 7em;
+    text-align: right;
+}
+
+td.depth-histogram-item-depth {
+    white-space: nowrap;
+    text-align: right;
+    /* width: 15em; */
+    height: 1.5em;
+    /* border-spacing:1em 0; */
+}
+
+td.depth-histogram-item-frequency {
+    text-align: right;
+    border-spacing:1em 0;
+}
+
+/* sdfsdfsdf */
+
+th.length-histogram-header-length {
+    text-align: center;
+}
+
+table.length-histogram {
+    table-layout: auto;
+    /* width: 100%; */
+    border-collapse: separate;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+th.length-histogram-header-length {
+    min-width: 7em;
+    text-align: right;
+}
+
+th.length-histogram-header-frequency {
+    min-width: 7em;
+    text-align: right;
+}
+
+td.length-histogram-item-length {
+    white-space: nowrap;
+    text-align: right;
+    /* width: 15em; */
+    height: 1.5em;
+    /* border-spacing:1em 0; */
+}
+
+td.depth-histogram-item-frequency {
+    text-align: right;
+    border-spacing:1em 0;
+}
+
+table.variations-table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+div.site_logo {
+    text-align: center;
+}
+
+.site_logo img {
+    width: var(--width-site-logo)
+}
+
+
+div.variations_table_title {
+    text-align: center;
+}
+
+div.site_footer {
+    text-align: center;
+    background-color: var(--color-background-footer);
+    box-sizing: border-box; 
+    padding-top: var(--padding-div-footer); 
+    padding-bottom: var(--padding-div-footer); 
+}
+
+.site_footer p,
+.site_footer a {
+    color: var(--color-text-footer)
+}
+
+td {
+    width: 3em;
+    text-align: center;
+}
+
+table.variations-table tr.variation:hover{
+    background-color: rgba(0, 0, 255, 0.2);
+}
+
+span.variations-table-instruction-row {
+    font-size: smaller;
+    font-weight: normal;
+    font-style: italic;
+    display: inline-block;
+    padding-bottom: 1.5em;
+}
+
+td.mainline-black {
+    padding-right: 0.5em;
+}
+
+td.mainline-white-nonnull,
+td.mainline-white-null,
+td.mainline-black-null,
+td.alt-white {
+    background-color: var(--color-background-move-white);
+}
+
+td.alt {
+    text-align: right;
+}
+
+td.mainline-black-nonnull,
+td.alt-black {
+    background-color: var(--color-background-move-black);
+}
+
+td.mainline-black {
+    border-right: black  3px solid;
+}
+
+td.alt:hover {
+    outline: red 2px solid;
+}
+
+
+td.fullmovenumber {
+    width: 1.8em;
+    text-align: right;
+}
+
+a.alt-anchor {
+    text-decoration: none;
+    color: inherit;
+}
+
+.alt-0 {
+    color: var(--color-level-0);
+}
+
+.alt-1 {
+    color: var(--color-level-1);
+}
+
+.alt-2 {
+    color: var(--color-level-2);
+}
+
+.alt-3 {
+    color: var(--color-level-3);
+}
+
+.alt-4 {
+    color: var(--color-level-4);
+}
+
+.alt-5 {
+    color: var(--color-level-5);
+}
+
+.alt-6 {
+    color: var(--color-level-6);
+}
+
+.alt-7 {
+    color: var(--color-level-7);
+}
+
+.alt-8 {
+    color: var(--color-level-8);
+}
+
+.alt-9 {
+    color: var(--color-level-9);
+}
+
+.alt-10 {
+    color: var(--color-level-10);
+}
+
+
+
+div.dump_pgn {
+    text-align: left;
+    padding-left: 2em;
+    padding-right: 2em;
+    }
+
+.under-construction-text {
+    color: var(--color-text-under-construction);
+    font-size: var(--fontsize-under-construction);
+}
+
+div.development {
+    font-size: x-large;
+    text-align: center;
+}
+
+div.development-promote-option {
+    font-size: x-large;
+    text-align: center;
+    padding: 12px;
+}
+
+.under-contruction-banner img {
+    width: var(--width-construction-banner)
+}

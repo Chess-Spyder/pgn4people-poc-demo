@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block page_title %}{% endblock page_title %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">
+    <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAUA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREQAAEREAABERAAAREQAAEREAABERAAAREQAAEREREQAAEREAABERAAAREQAAEREAABERAAAREQAAEREAAAAAEREAABERAAAREQAAEREAABERAAAREQAAEREAABEREREAABERAAAREQAAEREAABERAAAREQAAEREAABERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon" />
+    <div class = "site_logo"> <img src="{{ url_for('static', filename='assets/images/PGN4people_alphabetic_logo.png') }}" alt="pgn4people alphabetic logo: Easier navigation of complex chess games and repertoires." /></div>
+</head>
+<body>
+    <div class="flashes">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div> 
+
+    {% block body_content %}
+    {% endblock %}
+
+    <div class="site_footer">
+       <p><a href="https://github.com/jimratliff/pgn4people-poc">pgn4people at GitHub</a></p>
+    </div>
+    
+</body>
+</html>
