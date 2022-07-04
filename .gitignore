@@ -13,3 +13,6 @@ dist/
 build/
 *.egg-info/
 
+logfile.log
+.DS_Store
+*.zip
