@@ -4,6 +4,9 @@ Defines the GameNode and Edge classes
 See generally pgn4people-poc/docs/game-tree-concepts.md
 """
 
+import logging
+
+
 from . import constants
 
 class GameNode:
@@ -20,6 +23,10 @@ class GameNode:
     # set_of_terminal_node_IDs = set()  # Will be computed later, so doesn't need to be initialized
     # max_variation_depth = 0
     # max_halfmove_length_of_line = 0
+
+    # Track maximum number of edges across nodes without requiring a full report to be compiled. Reason: To allow
+    # the Variations Table to be a fixed width to avoid jankiness.
+    maximum_number_of_edges_per_node = 0
 
     # Defining the set of valid instance attributes
     __slots__ = {
@@ -60,7 +67,10 @@ class GameNode:
         self.choice_id_at_originatingnode = choice_id_at_originatingnode
 
         # Add node_id, which is NOT an attribute of this instance, to the class attribute .set_of_node_IDs
-        self.__class__.set_of_node_IDs.add(node_id)
+        # Checks for valid node_id. If not, skip. This allows for faux node for purposes of the initial invisible row
+        # of the variations table
+        if node_id != constants.UNDEFINED_TREEISH_VALUE:
+            self.__class__.set_of_node_IDs.add(node_id)
 
 
     def install_new_edge_on_originating_node(self, new_edge, originating_node_id):
@@ -80,6 +90,11 @@ class GameNode:
         """
         self.number_of_edges += 1
         self.edgeslist.append(new_edge)
+
+        if self.number_of_edges > self.__class__.maximum_number_of_edges_per_node:
+            self.__class__.maximum_number_of_edges_per_node = self.number_of_edges
+
+            logging.debug(f"Upped max number of edges per node to {self.number_of_edges}.")
 
         # Determine the index this added edge is assigned at the originating node, and add this as a property to the
         # edge.

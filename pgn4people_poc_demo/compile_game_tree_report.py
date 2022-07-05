@@ -28,6 +28,8 @@ def characterize_gametree(nodedict):
             frequency is the number of terminal nodes with halfmove equal to the given halfmove_length.
         depth_histogram: A collections.Counter dict of {depth: frequency} key:value pairs, where frequency is the number
             of terminal nodes with depth equal to the given depth.
+        number_of_edges_histogram: A collections.Counter dict of {number of edges: frequency} key:value pairs, where
+            frequency is the number of nodes with the given number of edges.
 
     There is a one-to-one relationship between (a) a “line” and (b) a terminal node.
 
@@ -85,3 +87,18 @@ def characterize_gametree(nodedict):
             GameTreeReport.halfmove_length_histogram[halfmove_length] += 1
         else:
             GameTreeReport.halfmove_length_histogram[halfmove_length] = 1
+
+    # Loops through ALL nodes
+    GameTreeReport.number_of_edges_histogram = {}
+    max_number_of_edges_on_a_node = 0
+
+    for node_id in GameNode.set_of_node_IDs:
+        node = nodedict[node_id]
+        number_of_edges = node.number_of_edges
+        if number_of_edges > max_number_of_edges_on_a_node:
+            max_number_of_edges_on_a_node = number_of_edges
+        
+        if number_of_edges in GameTreeReport.number_of_edges_histogram.keys():
+            GameTreeReport.number_of_edges_histogram[number_of_edges] += 1
+        else:
+            GameTreeReport.number_of_edges_histogram[number_of_edges] = 1

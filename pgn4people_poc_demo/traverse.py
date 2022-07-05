@@ -70,15 +70,18 @@ def render_report_of_game_tree_statistics():
 
     depth_histogram = GameTreeReport.depth_histogram
     length_histogram = GameTreeReport.halfmove_length_histogram
+    number_of_edges_histogram = GameTreeReport.number_of_edges_histogram
 
     # Computes supplemental statistics not included in the class attributes of class GameTreeReport
     sum_of_depth_histogram_frequencies = sum(depth_histogram.values())
     sum_of_length_histogram_frequencies = sum(length_histogram.values())
+    sum_of_number_of_edges_frequencies = sum(number_of_edges_histogram.values())
 
     return render_template("traverse/report.html",
                            game_tree_report=GameTreeReport,
                            sum_of_depth_histogram_frequencies = sum_of_depth_histogram_frequencies,
                            sum_of_length_histogram_frequencies = sum_of_length_histogram_frequencies,
+                           sum_of_number_of_edges_frequencies = sum_of_number_of_edges_frequencies,
                            )
 
 

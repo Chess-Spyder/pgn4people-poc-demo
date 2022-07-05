@@ -122,6 +122,24 @@ body {
     background-color: var( --color-backround-page);
   }
 
+div.links-to-report-sections {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h2.report-TOC {
+    text-align: center;
+}
+
+ul.links-to-report-sections {
+    list-style-type: none;
+}
+
+li.link-to-report-section {
+    text-align: center ;
+}
+
 table.report-component {
     table-layout: auto;
     border-collapse: collapse;
@@ -234,10 +252,47 @@ td.length-histogram-item-length {
     height: 1.5em;
 }
 
-td.depth-histogram-item-frequency {
+td.length-histogram-item-frequency {
     text-align: right;
     border-spacing:1em 0;
 }
+
+/* ============================================================================ */
+
+th.edges-histogram-header-length {
+    text-align: center;
+}
+
+table.edges-histogram {
+    table-layout: auto;
+    border-collapse: separate;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+th.edges-histogram-header-length {
+    min-width: 7em;
+    text-align: right;
+}
+
+th.edges-histogram-header-frequency {
+    min-width: 7em;
+    text-align: right;
+}
+
+td.edges-histogram-item-length {
+    white-space: nowrap;
+    text-align: right;
+    height: 1.5em;
+}
+
+td.edges-histogram-item-frequency {
+    text-align: right;
+    border-spacing:1em 0;
+}
+
+/* ============================================================================ */
 
 table.variations-table {
     border-collapse: collapse;

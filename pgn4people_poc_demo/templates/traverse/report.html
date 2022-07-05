@@ -5,9 +5,28 @@
 {% block body_content %}
 <div class="variations_table_title"><h1>Report about the game tree corresponding to the current PGN file</h1></div>
 
+<div class="links-to-report-sections">
+    <h2 class="report-TOC">Table of Contents</h2>
+    <ul class="links-to-report-sections">
+        <li class="link-to-report-section">
+            <a href="#report-summary" class="link-to-report-section">Summary of Statistics for this Game Tree</a>
+        </li>
+        <li class="link-to-report-section">
+            <a href="#depth-histogram" class="link-to-report-section">Frequency of Variations by Depth</a>
+        </li>
+        <li class="link-to-report-section">
+            <a href="#length-histogram" class="link-to-report-section">Frequency of Variations by Their Halfmove Length</a>
+        </li>
+        <li class="link-to-report-section">
+            <a href="#edges-histogram" class="link-to-report-section">Frequency of Nodes by Their Number of Edges</a>
+        </li>
+    </ul>
+    <hr class="report-section-divider">
+</div>
+
 
 <div class="report-summary">
-    <h2 class="report-component">Summary of Statistics for this Game Tree</h2>
+    <h2 id="report-summary" class="report-component">Summary of Statistics for this Game Tree</h2>
     <table class="report-summary report-component">
         <tr class="report-summary-item">
             <td class="report-summary-item-description">Number of lines:</td>
@@ -34,7 +53,7 @@
 </div>
 
 <div class="depth-histogram">
-    <h2 class="depth-histogram report-component">Frequency of Variations by Depth</h2>
+    <h2 id="depth-histogram" class="depth-histogram report-component">Frequency of Variations by Depth</h2>
     <table class="depth-histogram">
         <tr class="depth-histogram-header">
             <th class="depth-histogram-header-depth">Depth<sup>†</sup></th>
@@ -67,7 +86,7 @@
 </div>
 
 <div class="length-histogram">
-    <h2 class="length-histogram report-component">Frequency of Variations by Their Halfmove Length</h2>
+    <h2  id="length-histogram" class="length-histogram report-component">Frequency of Variations by Their Halfmove Length</h2>
     <table class="length-histogram">
         <tr class="length-histogram-header">
             <th class="length-histogram-header-length">Halfmove length<sup>†</sup></th>
@@ -97,19 +116,41 @@
         <p><sup>†</sup>The halfmove length of a line is the number of halfmoves from and including White’s first move to
             the last move of the line.</p>
     </div>
+    <hr class="report-section-divider">
 </div>
 
+<div class="edges-histogram">
+    <h2 id="edges-histogram" class="edges-histogram report-component">Frequency of Nodes by Their Number of Edges</h2>
+    <table class="edges-histogram">
+        <tr class="edges-histogram-header">
+            <th class="edges-histogram-header-length">Number of Edges<sup>†</sup></th>
+            <th class="edges-histogram-header-frequency">Frequency</th>
+        </tr>
 
-
-<!-- <div class="development">
-
-    <div class = "under-contruction-banner">
-        <p class="under-construction-text">Under Construction! Please be patient…</p>
-        <img src="{{ url_for('static', filename='assets/images/under_construction.png') }}" alt="Under Construction!" />
+        {% for key, value in game_tree_report.number_of_edges_histogram | dictsort  %}
+        <tr class="edges-histogram-item">
+            <td class="edges-histogram-item-length">
+                {{ key }}
+            </td>
+            <td class="edges-histogram-item-frequency">
+                {{ value }}
+            </td>
+        </tr>
+        {% endfor   %}
+        <tr class="edges-histogram-item">
+            <td class="edges-histogram-item-length">
+                Total
+            </td>
+            <td class="edges-histogram-item-frequency">
+                {{ sum_of_number_of_edges_frequencies }}
+            </td>
+        </tr>
+    </table>
+    <div class="table-note">
+        <p><sup>†</sup>A number of edges equal to zero corresponds to a terminal node. A number of edges equal to one corresponds to a node at which there is only the mainline choice and no alternatives.</p>
     </div>
-
-    <div class="development-promote-option">Here is the report output: ssdfsdfsdf</div>
-</div> -->
+    <!-- <hr class="report-section-divider"> -->
+</div>
 
 
 

@@ -3,6 +3,7 @@ Module for functions to produce the variations table.
 """
 import logging
 
+from . classes_arboreal import Edge, GameNode
 from . import constants
 from . constants import (BLACK_MOVE_DEFERRED,
                          VARTABLE_ALT_HALFMOVE_STYLE_NAME_PREFIX,
@@ -22,6 +23,7 @@ from . constants import (BLACK_MOVE_DEFERRED,
                          VARTABLE_ANCHOR_PREFIX_OPEN,
                          VARTABLE_ANCHOR_PREFIX_CLOSE,
                          VARTABLE_ANCHOR_SUFFIX,
+                         VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY,
                          )
 from . traverse_tree import compile_movetext_elements_for_output_for_single_node
 
@@ -38,19 +40,34 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
     node_id = constants.INITIAL_NODE_ID
     inbound_carryover_white_edge = None
 
+    # # Output an invisible row to establish the minimum width of the table (to prevent jankiness when one main line 
+    # # transitions to another.)
+    # string_for_row = (VARTABLE_VARIATION_ROW_PREFIX +
+    #                   VARTABLE_CELL_PREFIX_FULLMOVE_NUMBER + VARTABLE_CELL_SUFFIX +
+    #                   VARTABLE_CELL_PREFIX_OPEN + )
+
     do_continue = True
 
+    is_first_row = True
+
     while do_continue:
-        # Determine which edge should be treated as the main line
-        # Looks whether node_id is a node at which a deviation is prescribed by history
-        if node_id in deviation_history.keys():
-            # Node node_id has a deviation from the mainline action to deviation_history[node_id]
-            choice_id_as_mainline = deviation_history[node_id]
+
+        if is_first_row:
+            node = get_faux_node_for_invisible_first_row()
+            choice_id_as_mainline = 0
+            inbound_carryover_white_edge = None
+            is_first_row = False
         else:
-            # Node node_id doesn't have a deviation; use the mainline action (constants.INDEX_MAINLINE)
-            choice_id_as_mainline = constants.INDEX_MAINLINE
-        
-        node = nodedict[node_id]
+            # Determine which edge should be treated as the main line
+            # Looks whether node_id is a node at which a deviation is prescribed by history
+            if node_id in deviation_history.keys():
+                # Node node_id has a deviation from the mainline action to deviation_history[node_id]
+                choice_id_as_mainline = deviation_history[node_id]
+            else:
+                # Node node_id doesn't have a deviation; use the mainline action (constants.INDEX_MAINLINE)
+                choice_id_as_mainline = constants.INDEX_MAINLINE
+            
+            node = nodedict[node_id]
 
         # Get the info required to create the string of HTML for a single line of the variations table
         # varitions_line is an object of class Variations_Table_Line
@@ -219,3 +236,29 @@ def cell_CSS_name_based_on_reference_index(edge):
     reference_index = edge.reference_index
     cell_CSS_name_based_on_origin = VARTABLE_ALT_HALFMOVE_STYLE_NAME_PREFIX + str(reference_index)
     return cell_CSS_name_based_on_origin
+
+
+def get_faux_node_for_invisible_first_row():
+    """
+    Returns faux node for output of initial invisible row of variations table.
+
+    This node is not assigned a node_id and is not added to the nodedict dictionary, so it will not distort the node
+    report.
+    """
+
+    node = GameNode(depth = 0,
+                    halfmovenumber = 1,
+                    originating_node_id = 0,
+                    node_id = constants.UNDEFINED_TREEISH_VALUE)
+    number_of_edges = constants.VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY + 1
+    node.number_of_edges = number_of_edges
+    sole_edge_defined = Edge(movetext="", destination_node_id=0)
+
+    # Creates an edges list of multiple copies of this defined edge
+    edges_list = []
+    for index in range(0, number_of_edges):
+        sole_edge_defined.reference_index = index
+        edges_list.append(sole_edge_defined)
+
+    node.edgeslist = edges_list
+    return node

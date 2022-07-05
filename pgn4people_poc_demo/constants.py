@@ -61,6 +61,12 @@ BLACK_MOVE_PREFIX = "…"
 HTML_READABILITY_HACK = '\n'
 # HTML_READABILITY_HACK = ''
 
+# The following implements having a minimum number of alternative-move slots displays, even if the currently displayed
+# does not have that many alternatives. This is to prevent jankiness when transitioning from one main line to another.
+# The value of 5 is hard-coded based on the statistical analysis of the sample PGN. (Only at two nodes are there more
+# alternatives: 6×1 and 8×1.))
+VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY = 5
+
 VARTABLE_VARIATION_ROW_PREFIX = '<tr class="variation">' + HTML_READABILITY_HACK
 VARTABLE_ROW_SUFFIX = '</tr>' + HTML_READABILITY_HACK
 
