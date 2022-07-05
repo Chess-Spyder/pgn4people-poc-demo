@@ -1,0 +1,25 @@
+{% extends "site_template.html" %}
+
+{% block page_title %}pgn4people:About{% endblock page_title %}
+
+{% block body_content %}
+<div class="readme">
+<h1 id="pgn4people-a-better-way-to-view-pgn-chess-games-proof-of-concept-demo">pgn4people: A better way to view PGN chess games (proof-of-concept demo)</h1>
+<!-- <img width="80%" alt="Annotated_pgn4people_first_output with traditional" src="https://user-images.githubusercontent.com/8410716/170889780-b5a181ff-5f4f-4751-8f04-197a3058cbe0.png"> -->
+
+<p>A chess game’s PGN can be very difficult for humans to read, parse, navigate, and edit. It can be a messy maze that is easy to get lost in, particularly when there are long and/or deeply nested variations, subvariations, sub-subvarations, etc. And common chess interfaces don’t help enough. <strong>pgn4people</strong> provides an alternative paradigm that embraces <em>just-in-time complexity</em>: show the user only as much of the mess as is relevant to her <em>right that moment</em>.</p>
+<p><strong>pgn4people</strong> is especially useful for opening repertoires. Currently, players break their repertoires into many (even hundreds) of separate PGN files simply because it’s not feasible to navigate the lines of an entire repertoire from within a single PGN. But that’s due to an <em>interface failure</em>, not the inherent complexity of chess. With <strong>pgn4people</strong>, displaying and navigating through the entire repertoire represented by the <a href="https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings">Encyclopædia of Chess Openings (ECO)</a> or   Nick De Firmian’s equally encyclopedic <a href="https://www.penguinrandomhouse.com/books/38620/modern-chess-openings-15th-edition-by-nick-de-firmian/">Modern Chess Openings (MCO)</a> would appear no more complicated to the user than would displaying a single annotated game with variations only one level deep.</p>
+<p>Currently, <strong>pgn4people-poc</strong> is just a demo, just a proof of concept. (That’s what the “-poc” in pgn4people-poc stands for.) And <strong>pgn4people-poc</strong> is not intended to ever replace any current chess website or application software. Instead, the hope is that <strong>pgn4people-poc</strong> will inspire the developers of current chess websites and applications to add—as an option— <strong>pgn4people</strong>’s approach to displaying PGN.</p>
+<p>Check out the more-comprehensive discussion about the problems with traditional PGN interfaces and <strong>pgn4people-poc</strong>’s approach in the <a href="https://github.com/jimratliff/pgn4people-poc/blob/main/README.md">README</a> document at the GitHub repository for <a href="https://github.com/jimratliff/pgn4people-poc">pgn4people-poc</a>, the Python command-line interface app from which this web app sprung.</p>
+<p>Now you can:</p>
+<ul>    
+    <li>Play around with the <a href="/node/0">pgn4people interface</a> yourself. The built-in sample PGN gives you over 600 variations, some as deep as eight levels off the main line, representing almost 3500 different positions.</li>
+    <li>Look at the <a href="/dump_pgn">raw PGN</a> itself, to appreciate how much simpler it is to navigate with <strong>pgn4people-poc</strong> than working directly with the PGN.</li>
+    <li>Check out the <a href="/report">statistical summary</a> of the built-in PGN.</li>
+</ul>
+<p>The code for this web app is available in the GitHub repository for <a href="https://github.com/jimratliff/pgn4people-poc-demo">pgn4people-poc-demo</a>. The code is completely free and open source, made available under the very popular <a href="https://opensource.org/licenses/MIT">MIT license</a>.</p>
+
+
+</div>
+
+{% endblock body_content %}

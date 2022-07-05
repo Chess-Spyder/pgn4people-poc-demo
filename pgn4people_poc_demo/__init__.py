@@ -1,12 +1,13 @@
 import logging
 
 from flask import Flask
-# from flask import render_template
+from flask import render_template
 
 from . constants import (LOGGING_LEVEL,
                          LOG_FILE_NAME,
                          LOGGING_FORMAT)
 from . import traverse
+
 
 from . __version__ import __version__
 
@@ -28,9 +29,16 @@ def create_app(test_config=None):
     def index():
         # Index has no independent function; it returns the tree-traversal, reset to 0.
         return traverse.promote_node_to_main_line(0)
+    
+    @app.route("/about")
+    def about():
+        # Index has no independent function; it returns the tree-traversal, reset to 0.
+        return render_template("/about.html")
 
    
     app.register_blueprint(traverse.blueprint)
+
+
 
     # @app.before_first_request
     # def initialize_game_tree_for_tranversal(nodedict):
