@@ -88,6 +88,10 @@ a.navbar-anchor {
     text-decoration: none;
     color: inherit;
 }
+
+a.site-footer:hover,
+a.navbar-anchor:hover {
+    text-decoration: underline ;
 }
 
 body {
