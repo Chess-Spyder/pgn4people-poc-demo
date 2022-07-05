@@ -85,9 +85,9 @@ ul.navbar {
 
 li.navbar-item {
     text-align: center;
+    align-self: stretch;
     outline-color: var(--color-background-page);
     outline: solid;
-    padding: 0.5em 0 0.5em 0;
 }
 
 li.navbar-item-about {
@@ -110,6 +110,7 @@ a.navbar-anchor {
     display: block;
     text-decoration: none;
     color: inherit;
+    margin: 10px;
 }
 
 a.site-footer:hover,
