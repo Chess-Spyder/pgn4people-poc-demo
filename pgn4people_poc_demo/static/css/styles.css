@@ -31,16 +31,26 @@
     --padding-div-footer: 5px;
 }
 /* Outline all elements for debugging purposes */
-* { outline: 1px solid red; }
+/* * { outline: 1px solid red; } */
 
 div.flashes {
     background-color: var(--color-background-flashes);
     margin-left: auto;
     margin-right: auto;
+    margin-top: 1em;
     width: 60%;
-    padding: 10px;
+    padding: 0 ;
     font-weight: bold;
     font-size: larger;
+    border-radius: 10px;
+    text-align: center;
+}
+
+ul.flashes {
+    list-style-type: none;
+    padding: 2px 0 2px 0 ;
+}
+
 nav.navbar {
     background-color: var(--color-background-footer);
     color: var(--color-backround-page);
@@ -245,7 +255,7 @@ div.variations_table_title {
     text-align: center;
 }
 
-div.site_footer {
+div.site-footer {
     text-align: center;
     background-color: var(--color-background-footer);
     box-sizing: border-box; 
@@ -253,9 +263,10 @@ div.site_footer {
     padding-bottom: var(--padding-div-footer); 
 }
 
-.site_footer p,
-.site_footer a {
-    color: var(--color-text-footer)
+.site-footer p,
+.site-footer a {
+    color: var(--color-text-footer);
+    text-decoration: none;
 }
 
 td {
