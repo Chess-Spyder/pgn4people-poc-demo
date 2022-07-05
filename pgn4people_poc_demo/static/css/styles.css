@@ -306,6 +306,12 @@ td.mainline-black {
 }
 
 td.mainline-white-nonnull,
+td.mainline-white-null {
+    padding-right: 10px;
+}
+
+
+td.mainline-white-nonnull,
 td.mainline-white-null,
 td.mainline-black-null,
 td.alt-white {
@@ -333,6 +339,7 @@ td.alt:hover {
 td.fullmovenumber {
     width: 1.8em;
     text-align: right;
+    padding-right: 15px;
 }
 
 a.alt-anchor {
@@ -412,6 +419,13 @@ div.development-promote-option {
 .under-contruction-banner img {
     width: var(--width-construction-banner)
 }
+
+div.readme {
+    margin: 2em 2em 2em 2em ;
+    /* width: 75% ; */
+    font-size: 18px ;
+}
+
 div.welcome {
     font-family: var(--font-family-serif);
     width: 80%;
