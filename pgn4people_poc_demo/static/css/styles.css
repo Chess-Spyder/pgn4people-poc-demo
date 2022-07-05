@@ -29,9 +29,16 @@
     --width-construction-banner: 40%;
 
     --padding-div-footer: 5px;
+
+    --font-family-serif: 'PT Serif', serif;
+    --font-family-sans: 'PT Sans', sans-serif;
 }
 /* Outline all elements for debugging purposes */
 /* * { outline: 1px solid red; } */
+
+* {
+    /* font-family: var(--font-family-serif);x */
+}
 
 div.flashes {
     background-color: var(--color-background-flashes);
@@ -42,9 +49,14 @@ div.flashes {
     padding: 0 ;
     font-weight: bold;
     font-size: larger;
+    font-family: var(--font-family-sans);
     border-radius: 10px;
     text-align: center;
 }
+
+/* h1, h2 {
+    font-family: var(--font-family-sans);
+} */
 
 ul.flashes {
     list-style-type: none;
@@ -54,6 +66,7 @@ ul.flashes {
 nav.navbar {
     background-color: var(--color-background-footer);
     color: var(--color-backround-page);
+    font-family: var(--font-family-sans);
 }
 
 ul.navbar {
@@ -240,6 +253,7 @@ table.variations-table {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+    font-family: var(--font-family-sans);
 }
 
 div.site_logo {
@@ -256,6 +270,7 @@ div.variations_table_title {
 }
 
 div.site-footer {
+    font-family: var(--font-family-sans);
     text-align: center;
     background-color: var(--color-background-footer);
     box-sizing: border-box; 
@@ -372,6 +387,7 @@ a.alt-anchor {
 
 
 div.dump_pgn {
+    font-family: var(--font-family-sans);
     text-align: left;
     padding-left: 2em;
     padding-right: 2em;
