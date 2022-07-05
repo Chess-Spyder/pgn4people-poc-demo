@@ -18,14 +18,14 @@ At least initially, the only URL deliberately exposed to web visitors is `https:
 
 All of the other Flask “routes,” while not hidden from visitors, are only implementation details.
 
-## The `/node/nnn` routes are used for navigating the tree
+## The `/node/*nnn*` routes are used for navigating the tree
 When the root route (`"/"`) is reached, it is effectively redirected to `/node/0`, which displays the variations table, treating the original main line in the PGN as the main line to be displayed.
 
 As I learned from [pgn4people-poc](https://github.com/jimratliff/pgn4people-poc), any alternative variation can be identified and fully represented by simply a single node ID. (There is a one-to-one correspondence between the set of possible “lines/variations” and the set of terminal nodes. For any terminal node, the path that leads there can be specified as a set of deviations (node_id, edge), where edge has a nonzero index, i.e., is not the locally mainline move at node_id. The last such deviation (i.e., has no successor deviation on that path) implies all prior deviations. Thus, the node_id of the last such deviation uniquely determines the entire line.)
 
-Each alternative halfmove on the variations table corresponds to a particular node. (This is the destination node to which the chosen action leads.) Let that node has id n. Then clicking on that chosen alternative halfmove should take us to route `/node/n`.
+Each alternative halfmove on the variations table corresponds to a particular node. (This is the destination node to which the chosen action leads.) Let that node have id *n*. Then clicking on that chosen alternative halfmove should take us to route `/node/*n*`.
 
-We implement this by wrapping each alternative halfmove in a `<a>` anchor element, e.g., tag `<a src=/node/nnn>…Be5<a>`. Clicking on that halfmove takes control to the `/node/nnn` route, which tells the app to display the variations table for the unique main line that reaches node nnn and has no downstream deviations from locally mainline moves.
+We implement this by wrapping each alternative halfmove in a `<a>` anchor element, e.g., tag `<a src=/node/*nnn*>…Be5<a>`. Clicking on that halfmove takes control to the `/node/nnn` route, which tells the app to display the variations table for the unique main line that reaches node nnn and has no downstream deviations from locally mainline moves.
 
 ## The `/dump_pgn` outputs verbatim the stored sample PGN file
 The `/dump_pgn` outputs verbatim the stored sample PGN file.
