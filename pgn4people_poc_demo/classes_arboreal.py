@@ -18,8 +18,8 @@ class GameNode:
     set_of_node_IDs = set()
     set_of_nonterminal_node_IDs = set()
     # set_of_terminal_node_IDs = set()  # Will be computed later, so doesn't need to be initialized
-    max_variation_depth = 0
-    max_halfmove_length_of_line = 0
+    # max_variation_depth = 0
+    # max_halfmove_length_of_line = 0
 
     # Defining the set of valid instance attributes
     __slots__ = {
