@@ -25,7 +25,7 @@ As I learned from [pgn4people-poc](https://github.com/jimratliff/pgn4people-poc)
 
 Each alternative halfmove on the variations table corresponds to a particular node. (This is the destination node to which the chosen action leads.) Let that node have id *n*. Then clicking on that chosen alternative halfmove should take us to route `/node/n`.
 
-We implement this by wrapping each alternative halfmove in a `<a>` anchor element, e.g., tag `<a src=/node/*nnn*>…Be5<a>`. Clicking on that halfmove takes control to the `/node/nnn` route, which tells the app to display the variations table for the unique main line that reaches node nnn and has no downstream deviations from locally mainline moves.
+We implement this by wrapping each alternative halfmove in a `<a>` anchor element, e.g., tag `<a src=/node/nnn>…Be5<a>`. Clicking on that halfmove takes control to the `/node/nnn` route, which tells the app to display the variations table for the unique main line that reaches node nnn and has no downstream deviations from locally mainline moves.
 
 ## The `/dump_pgn` outputs verbatim the stored sample PGN file
 The `/dump_pgn` outputs verbatim the stored sample PGN file.
