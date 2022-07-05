@@ -20,6 +20,8 @@
     --color-background-move-white: var(--color-background-page);
     --color-background-move-black: rgba(20, 20, 20, 0.1);
 
+    --color-alt-hover: red ;
+
     --color-text-footer: white;
     --color-text-under-construction: var(--color-international-orange);
 
@@ -27,6 +29,7 @@
 
     --width-site-logo: 40%;
     --width-construction-banner: 40%;
+    --width-alt-hover: 2px ;
 
     --padding-div-footer: 5px;
 
@@ -76,11 +79,8 @@ ul.navbar {
     overflow: hidden;
     display: grid;
     grid-auto-flow: column;
-    justify-items: stretch;
     align-items: center;
     grid-template-columns: [gutter-left]  10% [col1] 1fr [col2] 1fr [col3] 1fr [col4] 1fr [gutter-right] 10% ;
-    /* grid-template-areas: "gutterleft col1 col2 col3 gutterright"; */
-    /* gap: 10px; */
 }
 
 li.navbar-item {
@@ -124,7 +124,6 @@ body {
 
 table.report-component {
     table-layout: auto;
-    /* width: 100%; */
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
@@ -137,7 +136,6 @@ div.report-summary {
 
 table.report-summary {
     table-layout: auto;
-    /* width: 100%; */
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
@@ -181,7 +179,6 @@ th.depth-histogram-header-depth {
 
 table.depth-histogram {
     table-layout: auto;
-    /* width: 100%; */
     border-collapse: separate;
     margin-left: auto;
     margin-right: auto;
@@ -201,9 +198,7 @@ th.depth-histogram-header-frequency {
 td.depth-histogram-item-depth {
     white-space: nowrap;
     text-align: right;
-    /* width: 15em; */
     height: 1.5em;
-    /* border-spacing:1em 0; */
 }
 
 td.depth-histogram-item-frequency {
@@ -211,15 +206,12 @@ td.depth-histogram-item-frequency {
     border-spacing:1em 0;
 }
 
-/* sdfsdfsdf */
-
 th.length-histogram-header-length {
     text-align: center;
 }
 
 table.length-histogram {
     table-layout: auto;
-    /* width: 100%; */
     border-collapse: separate;
     margin-left: auto;
     margin-right: auto;
@@ -239,9 +231,7 @@ th.length-histogram-header-frequency {
 td.length-histogram-item-length {
     white-space: nowrap;
     text-align: right;
-    /* width: 15em; */
     height: 1.5em;
-    /* border-spacing:1em 0; */
 }
 
 td.depth-histogram-item-frequency {
@@ -333,7 +323,9 @@ td.mainline-black {
 }
 
 td.alt:hover {
-    outline: red 2px solid;
+    outline-style: solid ;
+    outline-color: var(--color-alt-hover);
+    outline-width: var(--width-alt-hover);
 }
 
 
@@ -392,8 +384,6 @@ a.alt-anchor {
     color: var(--color-level-10);
 }
 
-
-
 div.dump_pgn {
     font-family: var(--font-family-sans);
     text-align: left;
@@ -423,7 +413,6 @@ div.development-promote-option {
 
 div.readme {
     margin: 2em 2em 2em 2em ;
-    /* width: 75% ; */
     font-size: 18px ;
 }
 
@@ -441,4 +430,8 @@ div.welcome {
 p.welcome-header {
     font-weight: bolder;
     font-size: larger;
+}
+
+p.welcome-content {
+    text-align: left;
 }
