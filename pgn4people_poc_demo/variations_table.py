@@ -101,9 +101,6 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line):
             • A Black move with or without alternatives
     """
 
-    # BEGIN DEBUG
-    type_of_variations_line = type(variations_line)
-    logging.debug(f"Inside string_of_HTML_for_single_row_of_variations_table.\n{str(variations_line)}")
 
     string_for_row = VARTABLE_VARIATION_ROW_PREFIX
     is_player_white = variations_line.is_player_white
@@ -135,25 +132,12 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line):
 
     if list_of_alternative_edges_to_display:
         for edge in list_of_alternative_edges_to_display:
-
-            # DEBUG
-            print(f"Looping thru edges: str(edge)")
-
-
             movetext, css_class_names_string = format_anchor_alternative_edge(edge, is_white = is_player_white)
-
-            # DEBUG
-            print(f"{movetext} classes: {css_class_names_string}")
-
-
             string_for_cell = HTML_string_for_variations_table_cell(movetext, css_class_names_string)
             string_for_row += string_for_cell
 
     # Close the row with “</tr>”
     string_for_row += VARTABLE_ROW_SUFFIX
-
-    # DEBUG
-    logging.debug(f"Complete string for row:\n{string_for_row}")
 
     return string_for_row
 
