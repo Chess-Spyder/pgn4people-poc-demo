@@ -38,10 +38,4 @@ def create_app(test_config=None):
    
     app.register_blueprint(traverse.blueprint)
 
-
-
-    # @app.before_first_request
-    # def initialize_game_tree_for_tranversal(nodedict):
-    #     return nodedict
-
     return app

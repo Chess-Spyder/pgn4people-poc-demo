@@ -11,7 +11,7 @@ def format_error_text(string):
     Formats as red text a string that is intended as an error message in order to stand out in the console
     """
 
-    # formatted_string = chalk.red_bright(string)
+
     formatted_string = string
     return formatted_string
 

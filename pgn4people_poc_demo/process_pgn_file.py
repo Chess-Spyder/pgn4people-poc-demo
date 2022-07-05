@@ -3,8 +3,8 @@ Functions to help parse PGN file of a chess game.
 """
 
 from importlib.resources import files
-import logging
-import os
+# import logging
+# import os
 import re
 
 from . import constants
@@ -24,7 +24,6 @@ def clean_and_parse_string_read_from_file(string_read_from_file):
     pgnstring = strip_balanced_braces_from_string(pgnstring)
 
     if not pgnstring:
-        # fatal_pgn_error("No valid movetext found", pgn_source)
         fatal_pgn_error("No valid movetext found")
    
     # Parse string into a list of tokens, either (a) a movetext entry (e.g., "e4"), (b) “(”, or (c) “)”.

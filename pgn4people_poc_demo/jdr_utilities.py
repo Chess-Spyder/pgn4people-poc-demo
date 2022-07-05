@@ -2,29 +2,8 @@
 Checks argument on command line for a path to a user-supplied PGN file.
 """
 
-# import argparse
-# import pathlib
+
 import re
-
-# Note: check_CLI_for_user_file belongs to jdr_utilities
-# def check_CLI_for_user_file(description=None, epilog=None):
-
-#     parser = argparse.ArgumentParser(description=description, epilog=epilog)
-    
-#     # Defines argument
-#     #   nargs='?': One argument will be consumed from the command line if possible, and produced as a single item.
-#     #       If no command-line argument is present, the value from default will be produced.
-#     #   default=None: Unnecessary, because `default` defaults to `None`, but included for clarity.`
-#     parser.add_argument('user_textfile_path', nargs='?', default=None, type=pathlib.Path)
-
-#     # Parse argument(s)
-#     args = parser.parse_args()
-
-#     # Return a pathlib.Path object, which supports the open() method.
-#     # See https://docs.python.org/3/library/pathlib.html#pathlib.Path.open
-#     user_textfile_path = args.user_textfile_path
-
-#     return user_textfile_path
 
 
 def id_text_between_first_two_blankish_lines (string_from_file):

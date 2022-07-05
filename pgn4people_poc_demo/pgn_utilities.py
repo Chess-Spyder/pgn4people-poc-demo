@@ -27,13 +27,6 @@ def is_Black_move(halfmovenumber):
     return is_even_number(halfmovenumber)
 
 
-# def assign_player_color_string(is_white_move):
-#     if is_white_move:
-#         return constants.WHITE_PLAYER_COLOR_STRING
-#     else:
-#         return constants.BLACK_PLAYER_COLOR_STRING
-
-
 def fullmovenumber_from_halfmove(halfmovenumber):
 #   Given a halfmove number, returns fullmovenumber
 #       “//” returns closest integer value that is ≤ the actual value

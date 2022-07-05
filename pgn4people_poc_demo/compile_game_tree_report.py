@@ -3,15 +3,12 @@ Construct and output report characterizing the current game tree in terms of
 number of lines, length of lines, and hierarchical depth.
 """
 
-# from yachalk import chalk
 
-from .error_processing import fatal_developer_error
+# from .error_processing import fatal_developer_error
 
 from . classes_arboreal import (GameNode,
                                 GameTreeReport)
 from . import constants
-# from . utilities import (conditionally_clear_console,
-#                          wait_for_any_user_input)
 
 
 def characterize_gametree(nodedict):

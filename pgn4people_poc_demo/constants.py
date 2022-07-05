@@ -30,8 +30,8 @@ CHOSEN_SAMPLE_PGN_FILE = PGNFILE1
 PATH_OF_PGN_FILE = DIRNAME_SAMPLE_PGNS + CHOSEN_SAMPLE_PGN_FILE
 
 # Descriptor presented when sample PGN is chosen
-PUBLIC_BASENAME_SAMPLE_PGN = f"Built-in sample PGN: {CHOSEN_SAMPLE_PGN_FILE}"
-VERSION_SAMPLE_PGN = "1.0.0"
+# PUBLIC_BASENAME_SAMPLE_PGN = f"Built-in sample PGN: {CHOSEN_SAMPLE_PGN_FILE}"
+# VERSION_SAMPLE_PGN = "1.0.0"
 
 # ARBOREAL CONSTANTS
 
@@ -46,7 +46,7 @@ INDEX_MAINLINE = 0
 # Options for formatting of variations table
 
 # Whether to preface Black alternative halfmoves with ellipses (“…”)
-do_ellipcize_Black_alternatives = True
+# do_ellipcize_Black_alternatives = True
 
 # Note: (a) BLACK_MOVE_PREFIX is a true ellipsis to economize on space but (b) BLACK_MOVE_DEFERRED and
 # WHITE_MOVE_ELLIPSIS are more spacious because each needs to span an entire movetext element of a White/Black move,

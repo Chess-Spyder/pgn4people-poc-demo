@@ -181,6 +181,3 @@ def buildtree(tokenlist):
             fatal_pgn_error(f"First token, “{token}”,  is not movetext.")
 
     return gamenodes
-
-
-
