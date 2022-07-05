@@ -13,6 +13,29 @@
     <div class="flashes">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul class="navbar">
+            <li class="navbar-item navbar-item-about">
+                <a class="navbar-anchor" href="/about">About pgn4people</a>
+            </li>
+            <li class="navbar-item navbar-item-node">
+                <a class="navbar-anchor" href="/node/0">Play around with pgn4people!</a>
+            </li>
+            <li class="navbar-item navbar-item-pgn">
+                <a class="navbar-anchor" href="/dump_pgn">See the raw built-in PGN</a>
+            </li>
+            <li class="navbar-item navbar-item-report">
+                <a class="navbar-anchor" href="/report">Statistics about the included PGN</a>
+            </li>
+        </ul>
+    </nav>
+
+
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flashes">
                 <ul class=flashes>
                     {% for message in messages %}
                         <li>{{ message }}</li>

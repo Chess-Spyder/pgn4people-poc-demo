@@ -41,6 +41,53 @@ div.flashes {
     padding: 10px;
     font-weight: bold;
     font-size: larger;
+nav.navbar {
+    background-color: var(--color-background-footer);
+    color: var(--color-backround-page);
+}
+
+ul.navbar {
+    list-style-type: none;
+    margin: 1em 0 0 0;
+    padding: 0;
+    overflow: hidden;
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: stretch;
+    align-items: center;
+    grid-template-columns: [gutter-left]  10% [col1] 1fr [col2] 1fr [col3] 1fr [col4] 1fr [gutter-right] 10% ;
+    /* grid-template-areas: "gutterleft col1 col2 col3 gutterright"; */
+    /* gap: 10px; */
+}
+
+li.navbar-item {
+    text-align: center;
+    outline-color: var(--color-background-page);
+    outline: solid;
+    padding: 0.5em 0 0.5em 0;
+}
+
+li.navbar-item-about {
+    grid-area: col1 ;
+}
+
+li.navbar-item-node {
+    grid-area: col2 ;
+}
+
+li.navbar-item-pgn {
+    grid-area: col3 ;
+}
+
+li.navbar-item-report {
+    grid-area: col4 ;
+}
+
+a.navbar-anchor {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
 }
 
 body {
