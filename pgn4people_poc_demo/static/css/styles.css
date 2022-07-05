@@ -412,3 +412,18 @@ div.development-promote-option {
 .under-contruction-banner img {
     width: var(--width-construction-banner)
 }
+div.welcome {
+    font-family: var(--font-family-serif);
+    width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto ;
+    margin-top: 2em;
+    border-style: dotted ;
+    padding: 0 1em 1em 1em ;
+}
+
+p.welcome-header {
+    font-weight: bolder;
+    font-size: larger;
+}
