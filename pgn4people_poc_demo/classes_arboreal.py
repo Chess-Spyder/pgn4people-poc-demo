@@ -91,10 +91,10 @@ class GameNode:
         self.number_of_edges += 1
         self.edgeslist.append(new_edge)
 
+        # Updates maximum_number_of_edges_per_node
         if self.number_of_edges > self.__class__.maximum_number_of_edges_per_node:
             self.__class__.maximum_number_of_edges_per_node = self.number_of_edges
 
-            logging.debug(f"Upped max number of edges per node to {self.number_of_edges}.")
 
         # Determine the index this added edge is assigned at the originating node, and add this as a property to the
         # edge.
