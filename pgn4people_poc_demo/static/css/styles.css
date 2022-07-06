@@ -347,6 +347,11 @@ span.variations-table-instruction-row {
     padding-bottom: 1.5em;
 }
 
+/* Hides the faux row */
+tr.variation.faux-row {
+    visibility: collapse;
+}
+
 td.mainline-black {
     padding-right: 0.5em;
 }
