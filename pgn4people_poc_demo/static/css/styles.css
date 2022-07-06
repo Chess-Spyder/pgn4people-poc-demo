@@ -39,9 +39,9 @@
 /* Outline all elements for debugging purposes */
 /* * { outline: 1px solid red; } */
 
-* {
-    /* font-family: var(--font-family-serif);x */
-}
+/* * {
+    font-family: var(--font-family-serif);x
+} */
 
 div.flashes {
     background-color: var(--color-background-flashes);
