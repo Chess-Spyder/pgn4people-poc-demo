@@ -9,6 +9,7 @@ from . constants import (BLACK_MOVE_DEFERRED,
                          VARTABLE_ALT_HALFMOVE_STYLE_NAME_PREFIX,
                          VARTABLE_VARIATION_ROW_PREFIX,
                          VARTABLE_ROW_SUFFIX,
+                         VARTABLE_VARIATION_FAUX_ROW_PREFIX,
                          VARTABLE_CELL_PREFIX_OPEN,
                          VARTABLE_CELL_PREFIX_CLOSE,
                          VARTABLE_CELL_SUFFIX,
@@ -36,19 +37,10 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
 
     list_of_strings_for_rows = []
 
-    # Start at initial node    
-    node_id = constants.INITIAL_NODE_ID
-    inbound_carryover_white_edge = None
-
-    # # Output an invisible row to establish the minimum width of the table (to prevent jankiness when one main line 
-    # # transitions to another.)
-    # string_for_row = (VARTABLE_VARIATION_ROW_PREFIX +
-    #                   VARTABLE_CELL_PREFIX_FULLMOVE_NUMBER + VARTABLE_CELL_SUFFIX +
-    #                   VARTABLE_CELL_PREFIX_OPEN + )
-
     do_continue = True
 
     is_first_row = True
+    are_key_values_unitialized = True
 
     while do_continue:
 
@@ -56,8 +48,13 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
             node = get_faux_node_for_invisible_first_row()
             choice_id_as_mainline = 0
             inbound_carryover_white_edge = None
-            is_first_row = False
         else:
+            if are_key_values_unitialized:
+                # Start at initial node    
+                node_id = constants.INITIAL_NODE_ID
+                inbound_carryover_white_edge = None
+                are_key_values_unitialized = False
+
             # Determine which edge should be treated as the main line
             # Looks whether node_id is a node at which a deviation is prescribed by history
             if node_id in deviation_history.keys():
@@ -92,19 +89,23 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
         elif (not is_terminal_node) or mainline_edge_white:
             # Produce a line of output if either (a) the node is not a terminal node or (b) even if the node is a 
             # terminal node but there was a residual carryover_white_edge that needs to be flushed.
-            string_for_row = string_of_HTML_for_single_row_of_variations_table(variations_line)
+            string_for_row = string_of_HTML_for_single_row_of_variations_table(variations_line,
+                                                                               is_first_row=is_first_row)
             list_of_strings_for_rows.append(string_for_row)
 
         # Finds the next node in the main line
         if do_continue:
         # if True:
-            next_node_id = nodedict[node_id].edgeslist[choice_id_as_mainline].destination_node_id
-            node_id = next_node_id
+            if is_first_row:
+                is_first_row = False
+            else:
+                next_node_id = nodedict[node_id].edgeslist[choice_id_as_mainline].destination_node_id
+                node_id = next_node_id
     # End of while not is_terminal_node loop
 
     return list_of_strings_for_rows
 
-def string_of_HTML_for_single_row_of_variations_table(variations_line):
+def string_of_HTML_for_single_row_of_variations_table(variations_line, is_first_row):
     """
     Constructs a string of HTML corresponding to a single row of the variations table, as described by the argument
     variations_line, which is an instance of the Variations_Table_Line class.
@@ -118,8 +119,11 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line):
             • A Black move with or without alternatives
     """
 
+    if is_first_row:
+        string_for_row = VARTABLE_VARIATION_FAUX_ROW_PREFIX
+    else:
+        string_for_row = VARTABLE_VARIATION_ROW_PREFIX
 
-    string_for_row = VARTABLE_VARIATION_ROW_PREFIX
     is_player_white = variations_line.is_player_white
     mainline_edge_white = variations_line.mainline_edge_white
 
@@ -145,7 +149,6 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line):
 
     # Loop through alternatives halfmoves
     list_of_alternative_edges_to_display = variations_line.list_of_alternative_edges_to_display
-    # is_player_white = variations_line.is_player_white
 
     if list_of_alternative_edges_to_display:
         for edge in list_of_alternative_edges_to_display:
@@ -252,7 +255,7 @@ def get_faux_node_for_invisible_first_row():
                     node_id = constants.UNDEFINED_TREEISH_VALUE)
     number_of_edges = constants.VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY + 1
     node.number_of_edges = number_of_edges
-    sole_edge_defined = Edge(movetext="", destination_node_id=0)
+    sole_edge_defined = Edge(movetext="Faux", destination_node_id=0)
 
     # Creates an edges list of multiple copies of this defined edge
     edges_list = []
@@ -261,4 +264,5 @@ def get_faux_node_for_invisible_first_row():
         edges_list.append(sole_edge_defined)
 
     node.edgeslist = edges_list
+
     return node
