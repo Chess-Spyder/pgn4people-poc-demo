@@ -26,7 +26,7 @@ from . constants import (BLACK_MOVE_DEFERRED,
                          VARTABLE_ANCHOR_SUFFIX,
                          VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY,
                          )
-from . traverse_tree import compile_movetext_elements_for_output_for_single_node
+from . game_tree import compile_movetext_elements_for_output_for_single_node
 
 
 def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
