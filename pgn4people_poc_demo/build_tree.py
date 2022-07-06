@@ -4,7 +4,7 @@ from . classes_arboreal import Edge
 from . classes_arboreal import GameNode
 from . import constants
 from . error_processing import fatal_pgn_error
-from . import pgn_utilities
+from . import utilities
 
 
 def buildtree(tokenlist):
@@ -54,7 +54,7 @@ def buildtree(tokenlist):
 
     for token in tokenlist:
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
-        if pgn_utilities.ismovetext(token):
+        if utilities.ismovetext(token):
             # Token is movetext, which defines an edge that connects (a) the node with id
             # current_originatingnode_id[depth] to a node about to be created with id current_node_id.
             # Processing now branches based on whether the immediately preceding token was (a) “(’, (b) “)”,

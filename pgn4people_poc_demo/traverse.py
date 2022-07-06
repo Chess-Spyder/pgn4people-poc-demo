@@ -12,9 +12,10 @@ from flask import render_template
 
 from . build_tree import buildtree
 from . classes_arboreal import GameTreeReport
-from . compile_game_tree_report import characterize_gametree
+
 from . import constants
 from . process_pgn_file import clean_and_parse_string_read_from_file
+from . traverse_tree import characterize_gametree
 from . traverse_tree import deviation_history_of_node
 from . variations_table import construct_list_of_rows_for_variations_table
 
