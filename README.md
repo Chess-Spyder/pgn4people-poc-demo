@@ -11,3 +11,17 @@ Essentially the same code was previously implemented as a CLI command-line appli
 
 Read the [README](https://github.com/jimratliff/pgn4people-poc/blob/main/README.md) at that project for much more discussion about what’s wrong with traditional PGN interfaces when faced with complex chess games and repertoires and how __pgn4people__ improves usability.
 
+## Version History
+* 1.0.0 7/6/2022
+    * Initial release
+    * Launched on PythonAnywhere at the URL [pgn4people.app](https://www.pgn4people.app/).
+<!--
+* 0.2
+    * Various bug fixes and optimizations
+    * See [commit change]() or See [release history]()
+* 0.1
+    * Initial Release
+-->
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
