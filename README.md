@@ -11,6 +11,12 @@ Essentially the same code was previously implemented as a CLI command-line appli
 
 Read the [README](https://github.com/jimratliff/pgn4people-poc/blob/main/README.md) at that project for much more discussion about what’s wrong with traditional PGN interfaces when faced with complex chess games and repertoires and how __pgn4people__ improves usability.
 
+# To run locally
+```
+export FLASK_DEBUG=1
+export FLASK_APP=pgn4people_poc_demo
+```
+
 ## Version History
 * 1.0.0 7/6/2022
     * Initial release
