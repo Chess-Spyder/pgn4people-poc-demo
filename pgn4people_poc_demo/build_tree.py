@@ -1,15 +1,29 @@
 """ Exports the buildtree() function """
 
+import logging
+
 from . classes_arboreal import Edge
 from . classes_arboreal import GameNode
-from . import constants
+from . constants import (
+                              CLOSE_VARIATION_INDICATOR,
+                              COMMENT_INDICATOR,
+                              INITIAL_NODE_ID,
+                              MOVETEXT_INDICATOR,
+                              NAG_INDICATOR,
+                              OPEN_VARIATION_INDICATOR,
+                              UNDEFINED_TREEISH_VALUE,
+                              )
 from . error_processing import fatal_pgn_error
-from . import utilities
+# from . import utilities
+from . import pgn_tokenizer
 
 
-def buildtree(tokenlist):
+def buildtree(tokenized_game):
     """
-    Build the game tree—as a dictionary (“gamenodes”) of game nodes—from supplied list of PGN tokens. Return gamenodes.
+    Build the game tree—as a dictionary (“gamenodes”) of game nodes—from supplied tokenized_game, which is an object of
+    class TokenizedGame.
+    
+    Return gamenodes.
 
     See generally pgn4people-poc/docs/game-tree-concepts.md
     """
@@ -24,6 +38,11 @@ def buildtree(tokenlist):
     current_originatingnode_id = {}
     # latest_mainline_destination is indexed by depth
     latest_mainline_destination = {}
+    # Initializes empty movetext_dict
+    movetext_dict = {}
+    # Initialize string to hold a comment that occurs at the beginning of a variation, i.e., before the first move
+    # of that variation
+    comment_at_beginning_of_a_variation = ""
  
     # Initializations to begin the looping through tokens
     # The first movetext token is necessarily the main line and thus depth=0
@@ -32,18 +51,18 @@ def buildtree(tokenlist):
     current_halfmovenumber[depth] = 1
 
     # Create the id=constants.INITIAL_NODE_ID=0 node corresponding to the initial position (and to White's first move)
-    originating_node_id_of_initial_node = constants.UNDEFINED_TREEISH_VALUE
-    newnode = GameNode(depth = depth,
+    originating_node_id_of_initial_node = UNDEFINED_TREEISH_VALUE
+    new_node = GameNode(depth = depth,
                        halfmovenumber = current_halfmovenumber[depth],
                        originating_node_id = originating_node_id_of_initial_node,
-                       node_id = constants.INITIAL_NODE_ID)
+                       node_id = INITIAL_NODE_ID)
     # Adds this new node as the first node in the gamenodes dictionary
-    gamenodes[constants.INITIAL_NODE_ID] = newnode
+    gamenodes[INITIAL_NODE_ID] = new_node
 
-    lastcreated_node_id = constants.INITIAL_NODE_ID
+    lastcreated_node_id = INITIAL_NODE_ID
 
     # The next node at current depth (0) will be spawned from node with id zero.
-    current_originatingnode_id[depth]=constants.INITIAL_NODE_ID
+    current_originatingnode_id[depth]=INITIAL_NODE_ID
     # Node_id for the next node to be created
     current_node_id = 1
 
@@ -52,9 +71,83 @@ def buildtree(tokenlist):
     is_preceded_by_open_paren = False
     is_preceded_by_closed_paren = False
 
+    # Initializes Boolean variation to apply constraints that apply only to the first
+    are_awaiting_first_movetext_token = True
+
+    # Most-recent previous token, to apply constraints based on what kinds of tokens can or cannot immediately follow
+    # other kinds of tokens
+    most_recently_found_token_type = "root"
+
+    # When a comment is encountered BEFORE the movetext to which it applies, the variable
+    # comment_at_beginning_of_a_variation is set to that comment text to await the next node created, and then that
+    # comment will be attached to that node.
+    # This variable must be reset to None everytime it is transferred to a node, because the way a node knows whether
+    # there is a preceding comment to attach is by checking whether this variable is None.
+    # There are two cases where this scenario can occur: (a) If there is a comment at the beginning of the PGN, i.e.,
+    # before the first movetext or (b) if there is a comment at the beginning of a variation (i.e., immediately after
+    # the “(” that begins the variation (before the first movetext of the variation).
+
+    comment_at_beginning_of_a_variation = None
+
+    tokenlist = tokenized_game.tokenlist
     for token in tokenlist:
+        token_type = token[0]
+
+        if are_awaiting_first_movetext_token:
+            if token_type in (OPEN_VARIATION_INDICATOR, CLOSE_VARIATION_INDICATOR, NAG_INDICATOR):
+                error_string = (f"Token type {token_type} encountered before first movetext token.\n",
+                                f"½#: {current_halfmovenumber[depth]}, token: {token}")
+                fatal_pgn_error(error_string)
+
+            # Check for a comment before even the first movetext
+            if token_type == COMMENT_INDICATOR:
+                # There is a comment before the first move of a game. This comment is assigned to the root node
+                comment_at_beginning_of_a_variation = token[1]
+                gamenodes[INITIAL_NODE_ID].comment = comment_at_beginning_of_a_variation
+                most_recently_found_token_type = COMMENT_INDICATOR
+                comment_at_beginning_of_a_variation = None
+                continue # Proceeds to the next token
+
+        if token_type == COMMENT_INDICATOR:
+            if most_recently_found_token_type in (COMMENT_INDICATOR, CLOSE_VARIATION_INDICATOR):
+                error_string = (f"Comment token cannot immediately follow token type {token_type}.\n",
+                                f"½#: {current_halfmovenumber[depth]}, token: {token}")
+                fatal_pgn_error(error_string)
+        
+            comment_text = token[1]
+
+            most_recently_found_token_type = COMMENT_INDICATOR
+
+            if most_recently_found_token_type == OPEN_VARIATION_INDICATOR:
+                comment_at_beginning_of_a_variation = comment_text
+            else:
+                # By elimination, token_type is either MOVETEXT_INDICATOR or NAG_INDICATOR (which itself immediately
+                # followed a MOVETEXT_INDICATOR).
+                # We attach this comment to the node just created for the recently preceding movetext.
+                new_node.comment = comment_text
+            
+            continue
+
+        if token_type == NAG_INDICATOR:
+            if most_recently_found_token_type != MOVETEXT_INDICATOR:
+                error_string = (f"NAG token encountered immediately after a {token_type} token rather after movetext.",
+                                f"\n½#: {current_halfmovenumber[depth]}, token: {token}")
+                fatal_pgn_error(error_string)
+            
+            most_recently_found_token_type = NAG_INDICATOR
+
+            nag_integer = token[1]
+            new_edge.nag = nag_integer
+
+            continue
+        
+        
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
-        if utilities.ismovetext(token):
+        if token_type == MOVETEXT_INDICATOR:
+
+            most_recently_found_token_type = MOVETEXT_INDICATOR
+            are_awaiting_first_movetext_token = False
+
             # Token is movetext, which defines an edge that connects (a) the node with id
             # current_originatingnode_id[depth] to a node about to be created with id current_node_id.
             # Processing now branches based on whether the immediately preceding token was (a) “(’, (b) “)”,
@@ -87,8 +180,8 @@ def buildtree(tokenlist):
                 is_preceded_by_closed_paren = False
 
             else:
-                # Current movetext token was immediately preceded by another movetext token (not a parenthesis), or by
-                #   initial node.
+                # Current movetext token was immediately preceded by another movetext token (not a parenthesis), or
+                # comment or NAG, or by the initial node, 
                 # The depth is unchanged.
                 # The halfmovenumber for this depth is incremented.
                 current_halfmovenumber[depth] += 1
@@ -100,7 +193,8 @@ def buildtree(tokenlist):
             # Define new edge corresponding to this token
                 # new_edge.movetext = token
                 # new_edge.destination_node_id = current_node_id
-            new_edge = Edge(token, current_node_id)
+            movetext_dict = token[1]
+            new_edge = Edge(movetext_dict, current_node_id)
 
             latest_mainline_destination[depth] = current_node_id
 
@@ -123,24 +217,34 @@ def buildtree(tokenlist):
 
             # newnode.choice_id_at_originatingnode = index_of_edge_at_originating_node
 
-            newnode = GameNode(depth = depth,
+            new_node = GameNode(depth = depth,
                                halfmovenumber = current_halfmovenumber[depth],
                                originating_node_id = current_originatingnode_id[depth],
+                               preceding_comment = comment_at_beginning_of_a_variation,
                                choice_id_at_originatingnode = index_of_edge_at_originating_node,
                                node_id = current_node_id)
+            
+            # Resets comment_at_beginning_of_a_variation to await the next time a comment immediately follows an
+            # opening parenthesis.
+            comment_at_beginning_of_a_variation = None
 
             
             # Add node to gamesnodes dictionary
-            gamenodes[current_node_id] = newnode
+            gamenodes[current_node_id] = new_node
 
             # Adjusts current_originatingnode_id[depth] and current_node_id for next node to be created
             lastcreated_node_id = current_node_id
             current_node_id += 1
 
-        elif token == "(":
-            # Check that this isn't the first token (which should not be “(”).
-            if current_node_id == 1:
-                fatal_pgn_error("“(” encountered on first token after headers.")
+            continue
+
+        if token_type == OPEN_VARIATION_INDICATOR:
+            if most_recently_found_token_type == OPEN_VARIATION_INDICATOR:
+                error_string = (f"Two consecutive “(”s encountered.\n ",
+                                f"½#: {current_halfmovenumber[depth]}, token: {token}")
+                fatal_pgn_error(error_string)
+
+            most_recently_found_token_type == OPEN_VARIATION_INDICATOR
 
             # A “(” begins a new variation at a depth one greater than the movetext immediately before the “(”.
             #   Thus, we increase the depth.
@@ -154,30 +258,33 @@ def buildtree(tokenlist):
             # Retain same originating node as the previous mainline move
             current_originatingnode_id[depth] = current_originatingnode_id[depth - 1]
 
-            # Sets flag to indicate that next token is immediately preceded by a closed parenthesis
+            # Sets flag to indicate that next token is immediately preceded by an open parenthesis
             is_preceded_by_open_paren = True
-    
-        elif token == ")":
-            # Check that this isn't the first token (which should not be “)”).
-            if current_node_id == 1:
-                fatal_pgn_error("“)” encountered on first token after headers.")
 
+            continue
+    
+        if token_type == CLOSE_VARIATION_INDICATOR:
             # A “)” ends the current variation and reverts to either (a) a previous line with depth one less or
             # (b) a new variation of the same depth that begins immediately. (This occurs when a node has two or
             # more alternatives in addition to the main line.)
 
+            most_recently_found_token_type == CLOSE_VARIATION_INDICATOR
+
             # We decrement the depth in case we’re continuing a previous line. (However, if it turns out that the “)”
-            # is immediately followed by a “(”, the next time through the loop the “elif token == "("” branch will
+            # is immediately followed by a “(”, the next time through the loop the if token == "("” branch will
             # un-do this decrementing by incrementing the depth.)
             depth -= 1
-
 
             # Sets flag to indicate that next token is immediately preceded by an open parenthesis
             is_preceded_by_closed_paren = True
 
+            continue
+
         else:
             # It’s not that obvious what would trigger this branch, because currently any token not a “(” or “)” *IS*
             # by definition movetext.
-            fatal_pgn_error(f"First token, “{token}”,  is not movetext.")
+            error_string = (f"Unexpected token type encountered, “{token_type}”\n",
+                            f"½#: {current_halfmovenumber[depth]}, token: {token}")
+            fatal_pgn_error(error_string)
 
     return gamenodes

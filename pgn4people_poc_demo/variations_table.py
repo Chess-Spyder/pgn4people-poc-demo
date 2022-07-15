@@ -6,6 +6,8 @@ import logging
 from . classes_arboreal import Edge, GameNode
 from . import constants
 from . constants import (BLACK_MOVE_DEFERRED,
+                         MOVETEXT_KEY_FOR_ALTERNATIVES,
+                         MOVETEXT_KEY_FOR_MAINLINE,
                          VARTABLE_ALT_HALFMOVE_STYLE_NAME_PREFIX,
                          VARTABLE_VARIATION_ROW_PREFIX,
                          VARTABLE_ROW_SUFFIX,
@@ -189,7 +191,8 @@ def format_mainline_edge(edge, is_white):
 
     if edge:
         # edge corresponds to an actual move, not a “null” ellipsis
-        movetext_string = edge.movetext
+        # movetext_string = edge.movetext
+        movetext_string = edge.movetext_dict[MOVETEXT_KEY_FOR_MAINLINE]
         cell_CSS_name_based_on_origin = cell_CSS_name_based_on_reference_index(edge)
         if is_white:
             css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_WHITE_NONNULL + cell_CSS_name_based_on_origin
@@ -215,7 +218,7 @@ def format_anchor_alternative_edge(edge, is_white):
         • css_class_names_string: A string of space-separated CSS class names
             E.g.: 'alt alt-black alt-0'
     """
-    movetext_string = edge.movetext
+    movetext_string = edge.movetext_dict[MOVETEXT_KEY_FOR_ALTERNATIVES]
     destination_node_id = edge.destination_node_id
     movetext_anchor_string = (VARTABLE_ANCHOR_PREFIX_OPEN +
                               str(destination_node_id) +
@@ -255,7 +258,8 @@ def get_faux_node_for_invisible_first_row():
                     node_id = constants.UNDEFINED_TREEISH_VALUE)
     number_of_edges = constants.VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY + 1
     node.number_of_edges = number_of_edges
-    sole_edge_defined = Edge(movetext="Faux", destination_node_id=0)
+    faux_movetext_dict = {"san":"Faux", "lan":"Faux","uci":"Faux"}
+    sole_edge_defined = Edge(movetext_dict=faux_movetext_dict, destination_node_id=0)
 
     # Creates an edges list of multiple copies of this defined edge
     edges_list = []

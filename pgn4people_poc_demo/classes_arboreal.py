@@ -36,6 +36,10 @@ class GameNode:
             "number of deviations from the local main line required to reach thisn node from the initial node",
         "originatingnode_id":
             "node_id of the node that uniquely immediately precedes this node",
+        "preceding_comment":
+            "comment text that, in the PGN,  occurs at the beginning of a variation and precedes the corresponding movetext.",
+        "comment":
+            "comment text associated with the node’s position; not a preceding comment",
         "choice_id_at_originatingnode":
             "index of edge within  originating node’s .edgeslist that led to this node",
         "edgeslist":
@@ -47,11 +51,11 @@ class GameNode:
     }
 
     
-    # def __init__(self, depth=None, halfmovenumber=None, originating_node_id=None, node_id=None):
-    def __init__(self,
+    def __init__(self, *,
                  depth=None,
                  halfmovenumber=None,
                  originating_node_id=None,
+                 preceding_comment = None,
                  choice_id_at_originatingnode=None,
                  node_id=None):
         # Note that node_id is NOT an attribute of the node object; it is passed to the constructor for information so
@@ -59,6 +63,7 @@ class GameNode:
         self.depth = depth
         self.halfmovenumber = halfmovenumber
         self.originatingnode_id = originating_node_id
+        self.preceding_comment = preceding_comment
 
         self.number_of_edges = 0
         self.edgeslist = []
@@ -114,17 +119,19 @@ class Edge:
 
 
     __slots__ = {
-        "movetext":
-            "Description of movetext",
+        "movetext_dict":
+            "Dictionary with multiple textual representations of the movetext",
+        "nag":
+            "The integer part of a NAG attached to the movetext.",
         "destination_node_id":
             "Description of destination_node_id",
         "reference_index":
-            "Description of reference_index"
+            "Description of reference_index",
     }
 
 
-    def __init__(self, movetext, destination_node_id):
-        self.movetext = movetext
+    def __init__(self, movetext_dict, destination_node_id):
+        self.movetext_dict = movetext_dict
         self.destination_node_id = destination_node_id
 
 
@@ -132,7 +139,8 @@ class Edge:
         """
         String representation of instance of Edge class.
         """
-        return f"({self.movetext}, REF:{self.reference_index}, →{self.destination_node_id})"
+        movetext_to_print = self.movetext_dict["lan"]
+        return f"({movetext_to_print}, REF:{self.reference_index}, →{self.destination_node_id})"
 
 
 class GameTreeReport:

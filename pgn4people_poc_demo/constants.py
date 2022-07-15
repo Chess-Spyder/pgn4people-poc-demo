@@ -33,6 +33,15 @@ PATH_OF_PGN_FILE = DIRNAME_SAMPLE_PGNS + CHOSEN_SAMPLE_PGN_FILE
 # PUBLIC_BASENAME_SAMPLE_PGN = f"Built-in sample PGN: {CHOSEN_SAMPLE_PGN_FILE}"
 # VERSION_SAMPLE_PGN = "1.0.0"
 
+# Constants defining the designator for each type of token in the tokenized form of a PGN game
+# Each is returned as the first element of each token, informing the consumer how the remainder of
+# the token should be interpreted.
+MOVETEXT_INDICATOR = "<M>"
+NAG_INDICATOR = "<N>"
+COMMENT_INDICATOR = "<C>"
+OPEN_VARIATION_INDICATOR = "<(>"
+CLOSE_VARIATION_INDICATOR = "<)>"
+
 # ARBOREAL CONSTANTS
 
 UNDEFINED_TREEISH_VALUE = -1
@@ -54,6 +63,10 @@ INDEX_MAINLINE = 0
 WHITE_MOVE_ELLIPSIS = ". . . "
 BLACK_MOVE_DEFERRED = ". . . "
 BLACK_MOVE_PREFIX = "…"
+
+# Type of movetext representation, "san", "lan"
+MOVETEXT_KEY_FOR_MAINLINE = "san"
+MOVETEXT_KEY_FOR_ALTERNATIVES = "san"
 
 # HTML constants for Variations Table template
 

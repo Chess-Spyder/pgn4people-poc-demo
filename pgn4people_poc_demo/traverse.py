@@ -3,8 +3,10 @@ Routes associated with the PGN file and raversing the tree: '/node/nnn',
 '/report', and 'dump_pgn'
 """
 
-# import logging
+import logging
 import os
+
+import chess.pgn
 
 from flask import Blueprint
 from flask import flash
@@ -14,10 +16,15 @@ from . build_tree import buildtree
 from . classes_arboreal import GameTreeReport
 
 from . import constants
-from . process_pgn_file import clean_and_parse_string_read_from_file
+# from . process_pgn_file import clean_and_parse_string_read_from_file
+from . process_pgn_file import pgn_file_not_found_fatal_error
 from . game_tree import characterize_gametree
 from . game_tree import deviation_history_of_node
 from . variations_table import construct_list_of_rows_for_variations_table
+
+# from . python_chess_utilities import debug_output_of_tokenized_game
+
+from . pgn_tokenizer import PGNTokenizer
 
 
 # NOTE: As of 7/1/2022
@@ -109,14 +116,28 @@ def prepare_nodedict_for_tranversal():
     PGN file which determines it never changes.
     """
 
-    # Get string of PGN from built-in PGN file
-    string_read_from_file = read_static_pgn_file()
+    # Contructs file path to built-in PGN file
 
-    # Grab the movetext from game #1 by stripping headers and stripping textual annotations; then tokenize that string.
-    tokenlist = clean_and_parse_string_read_from_file(string_read_from_file)
+    # Note: in Python 3.9+, I believe that __file__ necessarily returns an absolute path and thus the os.path.abspath
+    # part of the next line of code would be unnecessary. See https://www.youtube.com/watch?v=LVhxqOznPg0
+    basedir = os.path.abspath(os.path.dirname(__file__))
 
-    # Builds tree from pgn file
-    nodedict = buildtree(tokenlist)
+    pgn_filepath = os.path.join(basedir, constants.PATH_OF_PGN_FILE)
+
+    # Parse PGN file and return a TokenizedGame object
+    tokenized_game  = get_next_parsed_game_from_PGN_file_using_custom_visitor(pgn_filepath)
+
+    # For DEBUG
+    # debug_output_of_tokenized_game(tokenized_game)
+
+    # # Get string of PGN from built-in PGN file
+    # string_read_from_file = read_static_pgn_file()
+
+    # # Grab the movetext from game #1 by stripping headers and stripping textual annotations; then tokenize that string.
+    # tokenlist = clean_and_parse_string_read_from_file(string_read_from_file)
+
+    # Builds tree from tokenized_game object
+    nodedict = buildtree(tokenized_game)
     return nodedict
 
 
@@ -138,4 +159,14 @@ def read_static_pgn_file():
     return string_read_from_file
 
 
-
+def get_next_parsed_game_from_PGN_file_using_custom_visitor(pgn_filepath):
+    """
+    
+    """
+    try:
+        # with pgn_filepath.open('r') as pgn_file:
+        with open(pgn_filepath, 'r') as pgn_file:
+            parsed_pgn_text_stream = chess.pgn.read_game(pgn_file, Visitor=PGNTokenizer)
+            return parsed_pgn_text_stream
+    except FileNotFoundError as err:
+        pgn_file_not_found_fatal_error(pgn_filepath, err)
