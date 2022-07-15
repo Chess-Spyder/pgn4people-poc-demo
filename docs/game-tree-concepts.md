@@ -25,6 +25,18 @@ When the number of available move options (i.e., edges) at a node is zero, that 
 For a given terminal node, there is a unique sequence of moves that connects the initial node with that terminal node.
 
 ### Attributes of a node
+
+<div class="warning" style='padding:0.1em; background-color:yellow; color:green'>
+<span>
+<p style='margin-top:1em; margin-left: 1em; text-align:left'>
+<b>WARNING: Must be updated</b></p>
+<p style='margin-left:1em;'>
+This discussion of the attributes of the `GameNode` class must be updated to reflect the addition of the `.fen` attribute.
+</p>
+<!-- <p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> <b>- Gary Provost</b> <i>(100 Ways to Improve Your Writing, 1985)</i> -->
+</p></span>
+</div>
+
 By design, the data structure of a node, as defined in the dictionary `nodedict`, provides sufficient information for bi-directional (forward and backward) traversal of the tree. Thus, the user can explore the tree forward (i.e., from the initial node) but also then backtrack and choose a different variation at an earlier point. In order to efficiently achieve this bi-directional functionality, the attributes of a node overdetermine the tree in the sense that, even if some of these attributes weren’t present, one could still derive the entire tree by recursively traversing the tree from the initial node. The not-strictly-necessary attributes are included to reduce the amount of computation that would otherwise have to be inefficiently performed to travel backward in the tree.
 
 A new node (instance of `GameNode`) is created during the parsing of the PGN file—every time a new movetext token is parsed—to provide a destination node for that newly found edge (i.e., the new node corresponds to the position that would occur if this new movetext were played in the position in which it was found). At the time of creation, however, not all of the values that will ultimately be attributes of that destination node are known. Thus some of a node’s attribute are assigned at the time of node creation; other attributes can be assigned only retrospectively.
@@ -83,6 +95,20 @@ The “locally” adverb in “locally mainline” is a qualifier to acknowledge
 - Nevertheless, even if we reach a position not on the unique main line, we can construct the mainline *continuation* from that node by similarly constructing the unique mainline continuation that would be the sequence of alternating White and Black moves that results when each player, beginning at the that off-the-main-line position, for each position reached, chooses the locally mainline move in that position. 
 
 ## An edge is an instance of the `Edge` class
+
+<div class="warning" style='padding:0.1em; background-color:yellow; color:green'>
+<span>
+<p style='margin-top:1em; margin-left: 1em; text-align:left'>
+<b>WARNING: Must be updated</b></p>
+<p style='margin-left:1em;'>
+This discussion of the `Edge` class must be updated to reflect the change from (a)&nbsp;a single `movetext` string entity to (b) a `movetext_dict` dictionary of
+alternative string expressions for the given move.
+</p>
+<!-- <p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> <b>- Gary Provost</b> <i>(100 Ways to Improve Your Writing, 1985)</i> -->
+</p></span>
+</div>
+
+
 A move corresponds to the graph-theoretic concept of an “edge.” An edge originates at one node and connects to another node (which latter node then is an “immediate successor” node to the “originating node”).
 
 Here, where an edge belongs to a node (instance of `GameNode`), the edge’s originating node does not need to be specified as part of the edge’s specification itself (because it is implicit).
