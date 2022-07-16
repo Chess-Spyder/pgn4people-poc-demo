@@ -17,7 +17,19 @@ from . constants import (
                               CLOSE_VARIATION_INDICATOR,
                               )
 
+def update_position_with_move_uci(pre_move_fen, move_uci):
+    """
+    Returns the post-move position, as a FEN string, resulting from (a) starting at the pre-move
+    position, expressed as the FEN string pre_move_fen, and applying the chess move, expressed
+    as the SAN string move_sans.
+    """
 
+    board = chess.Board(pre_move_fen)
+    move = chess.Move.from_uci(move_uci)
+    board.push(move)
+    post_move_fen = board.fen()
+
+    return post_move_fen
 
 def san_from_board_and_move(board, move):
     move_san = board.san(move)

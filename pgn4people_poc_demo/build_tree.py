@@ -7,6 +7,7 @@ from . classes_arboreal import GameNode
 from . constants import (
                               CLOSE_VARIATION_INDICATOR,
                               COMMENT_INDICATOR,
+                              FEN_INITIAL,
                               INITIAL_NODE_ID,
                               MOVETEXT_INDICATOR,
                               NAG_INDICATOR,
@@ -14,8 +15,8 @@ from . constants import (
                               UNDEFINED_TREEISH_VALUE,
                               )
 from . error_processing import fatal_pgn_error
-# from . import utilities
-from . import pgn_tokenizer
+from . python_chess_utilities import update_position_with_move_uci
+# from . import pgn_tokenizer
 
 
 def buildtree(tokenized_game):
@@ -50,10 +51,14 @@ def buildtree(tokenized_game):
     # The first movetext token is White's first move, which has halfmovenumber=1, and depth=0
     current_halfmovenumber[depth] = 1
 
+    # FEN for initial position
+    fen_for_initial_node = FEN_INITIAL
+
     # Create the id=constants.INITIAL_NODE_ID=0 node corresponding to the initial position (and to White's first move)
     originating_node_id_of_initial_node = UNDEFINED_TREEISH_VALUE
     new_node = GameNode(depth = depth,
                        halfmovenumber = current_halfmovenumber[depth],
+                       fen = fen_for_initial_node,
                        originating_node_id = originating_node_id_of_initial_node,
                        node_id = INITIAL_NODE_ID)
     # Adds this new node as the first node in the gamenodes dictionary
@@ -141,7 +146,6 @@ def buildtree(tokenized_game):
 
             continue
         
-        
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
         if token_type == MOVETEXT_INDICATOR:
 
@@ -191,10 +195,13 @@ def buildtree(tokenized_game):
                 current_originatingnode_id[depth] = lastcreated_node_id
 
             # Define new edge corresponding to this token
-                # new_edge.movetext = token
-                # new_edge.destination_node_id = current_node_id
             movetext_dict = token[1]
-            new_edge = Edge(movetext_dict, current_node_id)
+            destination_node_id = current_node_id
+            new_edge = Edge(movetext_dict, destination_node_id)
+
+            # Computes chess position achieved after this move is played
+            pre_move_fen = gamenodes[current_originatingnode_id[depth]].fen
+            post_move_fen = update_position_with_move_uci(pre_move_fen, movetext_dict["uci"])
 
             latest_mainline_destination[depth] = current_node_id
 
@@ -210,19 +217,13 @@ def buildtree(tokenized_game):
             index_of_edge_at_originating_node = len(gamenodes[originating_node_id].edgeslist) - 1
 
             # Create new node corresponding to the destination reached if the current token's move is chosen
-            # newnode = GameNode(depth = depth,
-            #                    halfmovenumber = current_halfmovenumber[depth],
-            #                    originating_node_id = current_originatingnode_id[depth],
-            #                    node_id = current_node_id)
-
-            # newnode.choice_id_at_originatingnode = index_of_edge_at_originating_node
-
             new_node = GameNode(depth = depth,
-                               halfmovenumber = current_halfmovenumber[depth],
-                               originating_node_id = current_originatingnode_id[depth],
-                               preceding_comment = comment_at_beginning_of_a_variation,
-                               choice_id_at_originatingnode = index_of_edge_at_originating_node,
-                               node_id = current_node_id)
+                                halfmovenumber = current_halfmovenumber[depth],
+                                originating_node_id = current_originatingnode_id[depth],
+                                preceding_comment = comment_at_beginning_of_a_variation,
+                                fen = post_move_fen,
+                                choice_id_at_originatingnode = index_of_edge_at_originating_node,
+                                node_id = current_node_id)
             
             # Resets comment_at_beginning_of_a_variation to await the next time a comment immediately follows an
             # opening parenthesis.

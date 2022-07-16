@@ -68,9 +68,13 @@ BLACK_MOVE_PREFIX = "…"
 MOVETEXT_KEY_FOR_MAINLINE = "san"
 MOVETEXT_KEY_FOR_ALTERNATIVES = "san"
 
+# Chess constants
+FEN_INITIAL = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+
 # HTML constants for Variations Table template
 
-# Optional newline character to enhance readability, though HTML doesn’t read and thus doesn’t care
+# Optional newline character to enhance readability of the raw HTML in the templates, though HTML doesn’t read and
+# thus doesn’t care
 HTML_READABILITY_HACK = '\n'
 # HTML_READABILITY_HACK = ''
 
