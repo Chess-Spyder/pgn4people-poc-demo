@@ -2,7 +2,7 @@
 ## 7/14/2022, v.1.1.0 Transitioned to python-chess for the parsing of the PGN file
 
 # To Dos
-## ❑ GameNode: Add `.fen` attribute to `GameNode` and populate it when nodes are created
+## ✅ GameNode: Add `.fen` attribute to `GameNode` and populate it when nodes are created
 Each node needs to store the FEN corresponding to the position when the node is reached.
 
 ## ❑ Print FEN for chosen node-to-elevate to web page
