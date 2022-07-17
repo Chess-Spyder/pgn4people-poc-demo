@@ -38,7 +38,8 @@
                 <ul class=flashes>
                     {% for message in messages %}
                         <li>{{ message }}</li>
-                    {% endfor %}                </ul>
+                    {% endfor %}
+                </ul>
             </div> 
         {% endif %}
     {% endwith %}
@@ -49,7 +50,10 @@
 
     <div class="site-footer">
        <p><a class="site-footer"  href="https://github.com/jimratliff/pgn4people-poc">pgn4people at GitHub</a></p>
+       <!-- <p>Powered by: <a class="site-footer"  href="https://www.pythonanywhere.com">pythonanywhere</a></p> -->
+        <div class="footer-poweredby-python-anywhere">
+            <span>Powered by:&nbsp; <img src="https://www.pythonanywhere.com/static/anywhere/images/PA-logo.svg" alt="pythonanywhere logo" style="height:2em"></a></span>
+        </div>
     </div>
-    
 </body>
 </html>

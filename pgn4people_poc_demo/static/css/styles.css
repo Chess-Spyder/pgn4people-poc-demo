@@ -126,6 +126,20 @@ a.navbar-anchor:hover {
     text-decoration: underline ;
 }
 
+div.footer-poweredby-python-anywhere {
+    background-color: var(--color-backround-page) ;
+    color: black ;
+    display: inline-block ;
+    padding: 1em ;
+    border-radius: 0.5em ;
+    width: fit-content ;
+    margin-bottom: 1em ;
+}
+
+div.footer-poweredby-python-anywhere img {
+    vertical-align: middle ;
+}
+
 body {
     background-color: var( --color-backround-page);
   }
