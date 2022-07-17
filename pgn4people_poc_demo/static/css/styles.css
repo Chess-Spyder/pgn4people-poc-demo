@@ -45,7 +45,7 @@
 
 }
 /* Outline all elements for debugging purposes */
-* { outline: 1px solid red; }
+/* * { outline: 1px solid red; } */
 
 /* * {
     font-family: var(--font-family-serif);x
