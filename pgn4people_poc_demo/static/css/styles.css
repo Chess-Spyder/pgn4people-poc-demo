@@ -45,7 +45,7 @@
 
 }
 /* Outline all elements for debugging purposes */
-/* * { outline: 1px solid red; } */
+* { outline: 1px solid red; }
 
 /* * {
     font-family: var(--font-family-serif);x
@@ -366,9 +366,19 @@ table.variations-table tr.variation:hover{
 span.variations-table-instruction-row {
     font-size: smaller;
     font-weight: normal;
-    font-style: italic;
+    /* font-style: italic; */
+    white-space: nowrap;
     display: inline-block;
     padding-bottom: 1.5em;
+}
+
+span.variations-table-instruction-row-text {
+    font-size: smaller ;
+    font-weight: normal ;
+    font-style: italic ;
+    display: inline-block ;
+    padding-bottom: 1.5em ;
+    white-space: normal ;
 }
 
 /* Hides the faux row */
@@ -589,6 +599,7 @@ div.welcome {
     margin-left: auto;
     margin-right: auto ;
     margin-top: 2em;
+    margin-bottom: 2em;
     border-style: dotted ;
     padding: 0 1em 1em 1em ;
 }
