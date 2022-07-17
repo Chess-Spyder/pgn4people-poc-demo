@@ -35,7 +35,7 @@ from . pgn_tokenizer import PGNTokenizer
 blueprint = Blueprint('traverse', __name__)
 
 @blueprint.route('/node/<int:target_node_id>/<int:node_id_for_board>')
-def promote_node_to_main_line(target_node_id=0, node_id_for_board=0):
+def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_from_home_page=False):
     """
     When user requests to elevate a particular node (viz., target_node_id) to the main line, displays new
     variations-table web page reflecting the specified node elevated to the main line.
@@ -53,7 +53,10 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0):
                                                                                     target_node_id,
                                                                                     node_id_for_board)
 
-    # Gets data about node to show on chessboard
+    if redirect_from_home_page:
+        welcome_display_classname = ""
+    else:
+        welcome_display_classname = "welcome-hide"
 
 
     if target_node_id == 0:
@@ -66,7 +69,8 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0):
     # Renders the new variations table, incorporating the new rows
     return render_template("traverse/variations_table.html", 
                            target_node_id = target_node_id,
-                           list_of_rows_for_variations_table = list_of_rows_for_variations_table)
+                           list_of_rows_for_variations_table = list_of_rows_for_variations_table,
+                           welcome_display_classname = welcome_display_classname)
     # return render_template("traverse/variations_table.html", target_node_id = target_node_id)
 
 

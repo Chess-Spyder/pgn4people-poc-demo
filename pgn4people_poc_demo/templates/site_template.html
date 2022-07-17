@@ -32,24 +32,13 @@
         </ul>
     </nav>
 
-    <div class="welcome">
-        <p class="welcome-header">Welcome to pgn4people!</p>
-        <p class="welcome-content">pgn4people is a demonstration, and proof of concept, of a new and better way to navigate complex chess games
-            and repertoires. This web app allows you to play around with the pgn4people concept using a large, sample PGN file meant to 
-        simulate working with a large repertoire. Read <a href="/about">more</a>! </p>
-        </p>
-    </div>
-
-
-
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             <div class="flashes">
                 <ul class=flashes>
                     {% for message in messages %}
                         <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
+                    {% endfor %}                </ul>
             </div> 
         {% endif %}
     {% endwith %}

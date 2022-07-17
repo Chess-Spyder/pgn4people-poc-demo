@@ -587,3 +587,7 @@ p.welcome-header {
 p.welcome-content {
     text-align: left;
 }
+
+div.welcome-hide {
+    display: none ;
+}

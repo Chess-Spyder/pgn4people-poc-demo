@@ -28,7 +28,7 @@ def create_app(test_config=None):
     @app.route("/")
     def index():
         # Index has no independent function; it returns the tree-traversal, reset to 0.
-        return traverse.promote_node_to_main_line(0)
+        return traverse.promote_node_to_main_line(redirect_from_home_page = True)
     
     @app.route("/about")
     def about():
