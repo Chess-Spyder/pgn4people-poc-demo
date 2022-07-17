@@ -12,7 +12,7 @@
         <table class="variations-table">
             <tr>
                 <!-- Reset icon: Fabián Alexis, cropped by Prenn, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons https://commons.wikimedia.org/wiki/File:Flat_restart_icon.svg -->
-                <th><a  href="/node/0" title="Reset to initial position"><img width="30em" alt="Flat restart icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flat_restart_icon.svg/512px-Flat_restart_icon.svg.png"></a></th>
+                <th><a  href="/node/0/0" title="Reset to initial position"><img width="30em" alt="Flat restart icon" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flat_restart_icon.svg/512px-Flat_restart_icon.svg.png"></a></th>
                 <th colspan="2">Main Line</th>
                 <th colspan="8">Alternative Moves</th>
             </tr>
@@ -34,14 +34,18 @@
         </div>
     </div>
     <div class="text-comments-area">
+        <div class="text-comments-icon-area">
+            <img class="text-comments-icon" style="width:30px; padding-top: 10px; padding-left: 10px" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg">
+            <!-- <img class="text-comments-icon" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg"> -->
+        </div>
         <div class="precomment">
-            {{ precomment | safe }}
+            Here is some text! {{ precomment | safe }}
         </div>
         <div class="current-move-to-display-in-comments-text-area">
             {{ current_move | safe }}
         </div>
         <div class="postcomment">
-            {{ postcomment | safe }}
+            Here is some more text {{ postcomment | safe }}
         </div>
     </div>
 </div>

@@ -21,6 +21,7 @@ from . constants import (BLACK_MOVE_DEFERRED,
                          VARTABLE_CSS_NAME_MAINLINE_WHITE_NONNULL,
                          VARTABLE_CSS_NAME_MAINLINE_BLACK_NULL,
                          VARTABLE_CSS_NAME_MAINLINE_WHITE_NULL,
+                         VARTABLE_CSS_NAME_MAINLINE_FOCUS,
                          VARTABLE_CSS_NAME_ALTERNATIVE_BLACK,
                          VARTABLE_CSS_NAME_ALTERNATIVE_WHITE,
                          VARTABLE_ANCHOR_PREFIX_OPEN,
@@ -31,7 +32,7 @@ from . constants import (BLACK_MOVE_DEFERRED,
 from . game_tree import compile_movetext_elements_for_output_for_single_node
 
 
-def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
+def construct_list_of_rows_for_variations_table(nodedict, deviation_history, target_node_id, node_id_for_board):
     """
     Constructs/returns a list of strings, each of which corresponds to the HTML for one row of the variations table
     defined by deviation_history.
@@ -74,10 +75,10 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
                                                                                choice_id_as_mainline,
                                                                                inbound_carryover_white_edge)
         
-        # Reset inbound_carryover_white_edge
+        # Reset inbound_carryover_white_edge.
         inbound_carryover_white_edge = None
 
-        # Extracts useful elements from variations_line to determine whether to call print_single_node_to_console()
+        # Extracts useful elements from variations_line to determine whether to produce a line of output
         outbound_carryover_white_edge = variations_line.outbound_carryover_white_edge
         is_terminal_node = variations_line.is_terminal_node
         mainline_edge_white = variations_line.mainline_edge_white
@@ -92,6 +93,8 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
             # Produce a line of output if either (a) the node is not a terminal node or (b) even if the node is a 
             # terminal node but there was a residual carryover_white_edge that needs to be flushed.
             string_for_row = string_of_HTML_for_single_row_of_variations_table(variations_line,
+                                                                               target_node_id,
+                                                                               node_id_for_board,
                                                                                is_first_row=is_first_row)
             list_of_strings_for_rows.append(string_for_row)
 
@@ -107,7 +110,7 @@ def construct_list_of_rows_for_variations_table(nodedict, deviation_history):
 
     return list_of_strings_for_rows
 
-def string_of_HTML_for_single_row_of_variations_table(variations_line, is_first_row):
+def string_of_HTML_for_single_row_of_variations_table(variations_line, target_node_id, node_id_for_board, is_first_row):
     """
     Constructs a string of HTML corresponding to a single row of the variations table, as described by the argument
     variations_line, which is an instance of the Variations_Table_Line class.
@@ -134,19 +137,30 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line, is_first_
         fullmovenumber = str(variations_line.fullmovenumber) + "."
     else:
         fullmovenumber = ""
+
     string_for_cell = VARTABLE_CELL_PREFIX_FULLMOVE_NUMBER + fullmovenumber + VARTABLE_CELL_SUFFIX
     string_for_row += string_for_cell
 
     # Add White mainline halfmove
     # mainline_edge_white = variations_line.mainline_edge_white
-    movetext, css_class_names_string = format_mainline_edge(mainline_edge_white, is_white = True)
-    string_for_cell = HTML_string_for_variations_table_cell(movetext, css_class_names_string)
+    (movetext_anchor_string, css_class_names_string) = format_mainline_edge(
+                                                                        mainline_edge_white,
+                                                                        is_white = True,
+                                                                        target_node_id = target_node_id,
+                                                                        incoming_node_id_for_board = node_id_for_board)
+
+    string_for_cell = HTML_string_for_variations_table_cell(movetext_anchor_string, css_class_names_string)
     string_for_row += string_for_cell
 
     # Add Black mainline halfmove
     mainline_edge_black = variations_line.mainline_edge_black
-    movetext, css_class_names_string = format_mainline_edge(mainline_edge_black, is_white = False)
-    string_for_cell = HTML_string_for_variations_table_cell(movetext, css_class_names_string)
+    (movetext_anchor_string, css_class_names_string) = format_mainline_edge(
+                                                                        mainline_edge_black,
+                                                                        is_white = False,
+                                                                        target_node_id = target_node_id,
+                                                                        incoming_node_id_for_board = node_id_for_board)
+
+    string_for_cell = HTML_string_for_variations_table_cell(movetext_anchor_string, css_class_names_string)
     string_for_row += string_for_cell
 
     # Loop through alternatives halfmoves
@@ -154,8 +168,9 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line, is_first_
 
     if list_of_alternative_edges_to_display:
         for edge in list_of_alternative_edges_to_display:
-            movetext, css_class_names_string = format_anchor_alternative_edge(edge, is_white = is_player_white)
-            string_for_cell = HTML_string_for_variations_table_cell(movetext, css_class_names_string)
+            movetext_anchor_string, css_class_names_string = format_anchor_alternative_edge(edge,
+                                                                                            is_white = is_player_white)
+            string_for_cell = HTML_string_for_variations_table_cell(movetext_anchor_string, css_class_names_string)
             string_for_row += string_for_cell
 
     # Close the row with “</tr>”
@@ -165,9 +180,8 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line, is_first_
 
 def HTML_string_for_variations_table_cell(movetext, list_of_class_names):
     """
-    Returns string of HTML: <tr class="…">movetext</tr>
-    corresponding to a sincle cell of the variations table, whether that be a mainline move or an
-    altnerative move.
+    Returns string of HTML: <td class="…">movetext</tr>
+    corresponding to a single cell of the variations table, whether that be a mainline move or an alternative move.
 
     Takes as arguments the movetext and list of CSS class names.
     """
@@ -179,52 +193,81 @@ def HTML_string_for_variations_table_cell(movetext, list_of_class_names):
     return string_for_cell
 
 
-def format_mainline_edge(edge, is_white):
+def format_mainline_edge(edge, is_white, target_node_id, incoming_node_id_for_board):
     """
-    Provides the corresponding movetext for the supplied mainline edge and corresponding CSS class names for its cell
+    Provides the corresponding movetext, wrapped in an `<a>` anchor, for the supplied mainline edge and corresponding
+    CSS class names for its cell.
+    
     Returns as a 2-ple
-        • movetext_string: A string of movetext, e.g., "Bg5"
+        • movetext_anchor_string: A string of movetext, e.g., "Bg5", wrapped in an anchor (unless it’s a null-move
+            ellipsis, in which case it is not wrapped in an anchor)).
         • css_class_names_string: A string of space-separated CSS class names
             E.g.: 'mainline mainline-black mainline-black-nonnull alt-0'
     The color of the player who owns the edge determines both (a) the class names and (b) the choice of ellipsis
     """
 
+
     if edge:
         # edge corresponds to an actual move, not a “null” ellipsis
-        # movetext_string = edge.movetext
+
+        # Determine the node to which this edge leads
+        destination_node_id = edge.destination_node_id
+
+        # Assign to outgoing_node_id_for_board the node that would be reached after this mainline move is played
+        outgoing_node_id_for_board = destination_node_id
+
         movetext_string = edge.movetext_dict[MOVETEXT_KEY_FOR_MAINLINE]
+        movetext_anchor_string = form_anchor_string_for_vartable_halfmove(
+                                                                movetext_string = movetext_string,
+                                                                next_target_node_id = target_node_id,
+                                                                outgoing_node_id_for_board = outgoing_node_id_for_board)
+
         cell_CSS_name_based_on_origin = cell_CSS_name_based_on_reference_index(edge)
+
+        css_suffix = cell_CSS_name_based_on_origin
+
+        # test whether edge is the mainline edge to receive focus
+        if (incoming_node_id_for_board == destination_node_id):
+            css_class_name_for_distinguished_mainline_move = VARTABLE_CSS_NAME_MAINLINE_FOCUS
+
+            css_suffix += " " + css_class_name_for_distinguished_mainline_move
+
         if is_white:
-            css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_WHITE_NONNULL + cell_CSS_name_based_on_origin
+            css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_WHITE_NONNULL + css_suffix
         else:
-            css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_BLACK_NONNULL + cell_CSS_name_based_on_origin
+            css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_BLACK_NONNULL + css_suffix
     else:
         # edge is None means that the movetext should be replaced with some kind of ellipsis
         if is_white:
-            movetext_string = WHITE_MOVE_ELLIPSIS
+            movetext_anchor_string = WHITE_MOVE_ELLIPSIS
             css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_WHITE_NULL
         else:
-            movetext_string = BLACK_MOVE_DEFERRED
+            movetext_anchor_string = BLACK_MOVE_DEFERRED
             css_class_names_string = VARTABLE_CSS_NAME_MAINLINE_BLACK_NULL
 
-    return movetext_string, css_class_names_string
+    # return movetext_string, css_class_names_string
+    return movetext_anchor_string, css_class_names_string
 
 
 def format_anchor_alternative_edge(edge, is_white):
     """
-    Provides the corresponding movetext for the supplied alternative edge and corresponding CSS class names for its cell
+    Provides the corresponding movetext, wrapped in an `<a>` anchor, for the supplied alternative edge and corresponding
+    CSS class names for its cell.
+
     Returns as a 2-ple
-        • movetext_string: A string of movetext, e.g., "Bg5"
+        • movetext_anchor_string: A string of movetext, e.g., "Bg5", wrapped in an anchor.
         • css_class_names_string: A string of space-separated CSS class names
             E.g.: 'alt alt-black alt-0'
     """
     movetext_string = edge.movetext_dict[MOVETEXT_KEY_FOR_ALTERNATIVES]
+
+    # destination_node_id is included because it is included in the route URL for the mainline moves
     destination_node_id = edge.destination_node_id
-    movetext_anchor_string = (VARTABLE_ANCHOR_PREFIX_OPEN +
-                              str(destination_node_id) +
-                              VARTABLE_ANCHOR_PREFIX_CLOSE +
-                              movetext_string +
-                              VARTABLE_ANCHOR_SUFFIX)
+
+    movetext_anchor_string = form_anchor_string_for_vartable_halfmove(movetext_string = movetext_string,
+                                                                      next_target_node_id = destination_node_id,
+                                                                      outgoing_node_id_for_board = destination_node_id)
+
     cell_CSS_name_based_on_origin = cell_CSS_name_based_on_reference_index(edge)
     if is_white:
         css_class_names_string = VARTABLE_CSS_NAME_ALTERNATIVE_WHITE + cell_CSS_name_based_on_origin
@@ -232,6 +275,23 @@ def format_anchor_alternative_edge(edge, is_white):
         css_class_names_string = VARTABLE_CSS_NAME_ALTERNATIVE_BLACK + cell_CSS_name_based_on_origin
 
     return movetext_anchor_string, css_class_names_string
+
+
+def form_anchor_string_for_vartable_halfmove(movetext_string, next_target_node_id, outgoing_node_id_for_board):
+    """
+    Constructs HTML anchor link for a variations-table halfmove, whether a mainline or alternative halfmove.
+
+    The route is of the form `node/nnn/mmm`, where
+        `nnn` is supplied by the argument next_target_node_id, and
+        `mmm` is supplied by the argument node_id_for_board
+    """
+    movetext_anchor_string = (VARTABLE_ANCHOR_PREFIX_OPEN +
+                              str(next_target_node_id) + "/" +
+                              str(outgoing_node_id_for_board) +
+                              VARTABLE_ANCHOR_PREFIX_CLOSE +
+                              movetext_string +
+                              VARTABLE_ANCHOR_SUFFIX)
+    return movetext_anchor_string
 
 
 def cell_CSS_name_based_on_reference_index(edge):

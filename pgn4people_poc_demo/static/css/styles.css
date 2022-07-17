@@ -41,10 +41,11 @@
     --font-family-serif: 'PT Serif', serif;
     --font-family-sans: 'PT Sans', sans-serif;
 
+    --url-image-thought-bubble-svg: url(https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg)
 
 }
 /* Outline all elements for debugging purposes */
-* { outline: 1px solid red; }
+/* * { outline: 1px solid red; } */
 
 /* * {
     font-family: var(--font-family-serif);x
@@ -321,7 +322,7 @@ div.site_logo {
 
 div.variations_table_title {
     text-align: center;
-    font-size: 1em
+    font-size: 0.75em
 }
 
 div.site-footer {
@@ -376,6 +377,13 @@ td.mainline-white-null,
 td.mainline-black-null,
 td.alt-white {
     background-color: var(--color-background-move-white);
+}
+
+td.mainline-focus a.alt-anchor {
+    border-color: #0ff ;
+    border-style: solid ;
+    border-radius: 0.5em ;
+    box-shadow: 0px 0px 10px 10px #0ff;
 }
 
 td.alt {
@@ -529,9 +537,20 @@ img.chess-board-image {
 
 div.text-comments-area {
     background-color: var(--color-background-text-comments) ;
-    padding: 1.5em ;
-    /* grid-area: chessboard-area ; */
 }
+
+
+/* I've been unable to get the SVG to scale */
+/* div.text-comments-area::before {
+    /* content: "ANNOTATIONS" */
+    /* content: url(https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg);
+    height: 50px ; */
+/* } */
+
+/* .text-comments-area { */
+    /* width: 50px ; */
+    /* background-image: url(var(--url-image-thought-bubble-svg)); */
+/* } */
 
 /* div.development-promote-option {
     font-size: x-large;

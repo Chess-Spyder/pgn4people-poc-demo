@@ -34,8 +34,8 @@ from . pgn_tokenizer import PGNTokenizer
 # Re Blueprints, see https://flask.palletsprojects.com/en/2.1.x/tutorial/views/
 blueprint = Blueprint('traverse', __name__)
 
-@blueprint.route('/node/<int:target_node_id>')
-def promote_node_to_main_line(target_node_id=0):
+@blueprint.route('/node/<int:target_node_id>/<int:node_id_for_board>')
+def promote_node_to_main_line(target_node_id=0, node_id_for_board=0):
     """
     When user requests to elevate a particular node (viz., target_node_id) to the main line, displays new
     variations-table web page reflecting the specified node elevated to the main line.
@@ -48,7 +48,13 @@ def promote_node_to_main_line(target_node_id=0):
     deviation_history = deviation_history_of_node(nodedict, target_node_id)
 
     # Gets a list of HTML table rows for the new variations table
-    list_of_rows_for_variations_table = construct_list_of_rows_for_variations_table(nodedict, deviation_history)
+    list_of_rows_for_variations_table = construct_list_of_rows_for_variations_table(nodedict,
+                                                                                    deviation_history,
+                                                                                    target_node_id,
+                                                                                    node_id_for_board)
+
+    # Gets data about node to show on chessboard
+
 
     if target_node_id == 0:
         flash_message = f"The game tree has been reset to the original main line."
