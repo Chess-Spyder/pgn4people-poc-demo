@@ -17,6 +17,7 @@ from . classes_arboreal import GameTreeReport
 
 from . import constants
 # from . process_pgn_file import clean_and_parse_string_read_from_file
+from . display_chess_board import form_url_for_chessboard_svg
 from . process_pgn_file import pgn_file_not_found_fatal_error
 from . game_tree import characterize_gametree
 from . game_tree import deviation_history_of_node
@@ -58,6 +59,8 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_fr
     else:
         welcome_display_classname = "welcome-hide"
 
+    # Gets (a) URL for the downloadable SVG chess board and (b) FEN for currently focused position
+    (chessboard_url, chessboard_fen) = form_url_for_chessboard_svg(nodedict, node_id_for_board)
 
     if target_node_id == 0:
         flash_message = f"The game tree has been reset to the original main line."
