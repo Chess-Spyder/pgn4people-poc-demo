@@ -4,7 +4,7 @@ I developed an earlier incarnation of this software and offered it under the
 MIT license. Those early versions had no dependence on any third-party library
 that was not also licensed under the MIT license.
 
-Now the functionality of substantial portions of this project relies crucially
+Now, the functionality of substantial portions of this project relies crucially
 on Niklas Fiekas’s python-chess «https://github.com/niklasf/python-chess»,
 which is licensed under GNU General Public License, Version 3.
 
