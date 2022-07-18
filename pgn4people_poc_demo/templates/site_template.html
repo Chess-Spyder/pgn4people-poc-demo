@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Page title -->
     <title>{% block page_title %}{% endblock page_title %}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css') }}">
+    <!-- Favicon -->
     <link href="data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAAAAAUA////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAREQAAEREAABERAAAREQAAEREAABERAAAREQAAEREREQAAEREAABERAAAREQAAEREAABERAAAREQAAEREAAAAAEREAABERAAAREQAAEREAABERAAAREQAAEREAABEREREAABERAAAREQAAEREAABERAAAREQAAEREAABERAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rel="icon" type="image/x-icon" />
+    <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
@@ -21,7 +24,7 @@
                 <a class="navbar-anchor" href="/about">About pgn4people</a>
             </li>
             <li class="navbar-item navbar-item-node">
-                <a class="navbar-anchor" href="/node/0/1">Play around with pgn4people!</a>
+                <a class="navbar-anchor" href="/node/0/0">Play around with pgn4people!</a>
             </li>
             <li class="navbar-item navbar-item-pgn">
                 <a class="navbar-anchor" href="/dump_pgn">See the raw built-in PGN</a>
@@ -52,7 +55,7 @@
        <p><a class="site-footer"  href="https://github.com/jimratliff/pgn4people-poc">pgn4people at GitHub</a></p>
        <!-- <p>Powered by: <a class="site-footer"  href="https://www.pythonanywhere.com">pythonanywhere</a></p> -->
         <div class="footer-poweredby-python-anywhere">
-            <span>Powered by:&nbsp; <img src="https://www.pythonanywhere.com/static/anywhere/images/PA-logo.svg" alt="pythonanywhere logo" style="height:2em"></a></span>
+            <a href="https://www.pythonanywhere.com"><span>Powered by:&nbsp; <img src="https://www.pythonanywhere.com/static/anywhere/images/PA-logo.svg" alt="pythonanywhere logo" style="height:2em"></a></span></a>
         </div>
     </div>
 </body>

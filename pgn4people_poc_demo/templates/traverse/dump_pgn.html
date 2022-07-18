@@ -3,14 +3,9 @@
 {% block page_title %}pgn4people: PGN File{% endblock page_title %}
 
 {% block body_content %}
-<div class="variations_table_title"><h1>Raw PGN used in this demo</h1></div>
+<div class="major-heading-title"><h1>Raw PGN used in this demo</h1></div>
 
-<div class="development">
-
-    <!-- <div class = "under-contruction-banner">
-        <p class="under-construction-text">Under Construction! Please be patient…</p>
-        <img src="{{ url_for('static', filename='assets/images/under_construction.png') }}" alt="Under Construction!" />
-    </div> -->
+<div class="dump-pgn">
 
     <!-- The `| safe` filter prevents the embedded <br> tags from being auto-escaped into oblivion. -->
     <div class="dump_pgn">{{ raw_pgn_string | safe }}</div>

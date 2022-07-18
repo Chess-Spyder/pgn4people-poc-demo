@@ -1,6 +1,10 @@
 :root{
+    /* COLORS */
+    /* Named colors */
     --color-international-orange: rgb(255 79 0);
+    --color-yellow-sticky-note: #FFFF88 ;
 
+    /* Colors for variation table’s alternative moves by original reference id */
     /* See https://sashamaps.net/docs/resources/20-colors/ */
     --color-level-0: Black;
     --color-level-1: #e6194B;
@@ -14,8 +18,7 @@
     --color-level-9: #dcbeff;
     --color-level-10: #9A6324;
 
-    --color-yellow-sticky-note: #FFFF88 ;
-
+    /* Background colors */
     --color-backround-page: ghostwhite  ;
     --color-background-flashes: lightpink ;
     --color-background-footer: blue;
@@ -24,13 +27,17 @@
     --color-background-text-comments: var(--color-yellow-sticky-note) ;
 
     --color-alt-hover: red ;
+    --color-alt-rows-background-color-on-hover: rgba(0, 0, 255, 0.2) ;
 
+    /* Text colors */
+    --color-text-footer-poweredby-python-anywhere: black ;
     --color-text-footer: white;
     --color-text-under-construction: var(--color-international-orange);
 
-
+    /* Font sizes */
     --fontsize-under-construction: xxx-large;
 
+    /* Widths */
     --width-site-logo: 40%;
     --width-site-logo-max: 40em ;
     --width-construction-banner: 40%;
@@ -38,19 +45,94 @@
 
     --padding-div-footer: 5px;
 
+    /* Font families */
     --font-family-serif: 'PT Serif', serif;
     --font-family-sans: 'PT Sans', sans-serif;
 
-    --url-image-thought-bubble-svg: url(https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg)
+    /* SVG image */
+    --url-image-thought-bubble-svg: url(https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg) ;
+
+    /* Other */
+    /* text-decoration */
+    --text-decoration-hover-header-and-footer: underline ;
 
 }
 /* Outline all elements for debugging purposes */
 /* * { outline: 1px solid red; } */
 
-/* * {
-    font-family: var(--font-family-serif);x
-} */
+* {
+    font-family: var(--font-family-sans);
+}
 
+/* Styles for site template */
+
+body {
+    background-color: var( --color-backround-page);
+  }
+
+/* Site logo */
+div.site_logo {
+    text-align: center;
+}
+
+.site_logo img {
+    width: var(--width-site-logo) ;
+    max-width: var(--width-site-logo-max) ;
+}
+
+/* Navbar */
+nav.navbar {
+    background-color: var(--color-background-footer);
+    color: var(--color-backround-page);
+    font-family: var(--font-family-sans);
+}
+
+a.navbar-anchor {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin: 10px;
+}
+
+a.navbar-anchor:hover {
+    text-decoration: var(--text-decoration-hover-header-and-footer) ;
+}
+
+ul.navbar {
+    list-style-type: none;
+    margin: 1em 0 0 0;
+    padding: 0;
+    overflow: hidden;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    grid-template-columns: [gutter-left]  10% [nav-col1] 1fr [nav-col2] 1fr [nav-col3] 1fr [nav-col4] 1fr [gutter-right] 10% ;
+}
+
+li.navbar-item {
+    text-align: center;
+    align-self: stretch;
+    outline-color: var(--color-background-page);
+    outline: solid;
+}
+
+li.navbar-item-about {
+    grid-area: nav-col1 ;
+}
+
+li.navbar-item-node {
+    grid-area: nav-col2 ;
+}
+
+li.navbar-item-pgn {
+    grid-area: nav-col3 ;
+}
+
+li.navbar-item-report {
+    grid-area: nav-col4 ;
+}
+
+/* Flash messages */
 div.flashes {
     background-color: var(--color-background-flashes);
     margin-left: auto;
@@ -65,70 +147,35 @@ div.flashes {
     text-align: center;
 }
 
-/* h1, h2 {
-    font-family: var(--font-family-sans);
-} */
-
 ul.flashes {
     list-style-type: none;
     padding: 2px 0 2px 0 ;
 }
 
-nav.navbar {
-    background-color: var(--color-background-footer);
-    color: var(--color-backround-page);
+/* Footer */
+
+div.site-footer {
     font-family: var(--font-family-sans);
-}
-
-ul.navbar {
-    list-style-type: none;
-    margin: 1em 0 0 0;
-    padding: 0;
-    overflow: hidden;
-    display: grid;
-    grid-auto-flow: column;
-    align-items: center;
-    grid-template-columns: [gutter-left]  10% [col1] 1fr [col2] 1fr [col3] 1fr [col4] 1fr [gutter-right] 10% ;
-}
-
-li.navbar-item {
     text-align: center;
-    align-self: stretch;
-    outline-color: var(--color-background-page);
-    outline: solid;
+    background-color: var(--color-background-footer);
+    box-sizing: border-box; 
+    padding-top: var(--padding-div-footer); 
+    padding-bottom: var(--padding-div-footer); 
 }
 
-li.navbar-item-about {
-    grid-area: col1 ;
-}
-
-li.navbar-item-node {
-    grid-area: col2 ;
-}
-
-li.navbar-item-pgn {
-    grid-area: col3 ;
-}
-
-li.navbar-item-report {
-    grid-area: col4 ;
-}
-
-a.navbar-anchor {
-    display: block;
+.site-footer p,
+.site-footer a {
+    color: var(--color-text-footer);
     text-decoration: none;
-    color: inherit;
-    margin: 10px;
 }
 
-a.site-footer:hover,
-a.navbar-anchor:hover {
-    text-decoration: underline ;
+a.site-footer:hover {
+    text-decoration: var(--text-decoration-hover-header-and-footer) ;
 }
 
 div.footer-poweredby-python-anywhere {
     background-color: var(--color-backround-page) ;
-    color: black ;
+    color: var(--color-text-footer-poweredby-python-anywhere)  ;
     display: inline-block ;
     padding: 1em ;
     border-radius: 0.5em ;
@@ -136,13 +183,327 @@ div.footer-poweredby-python-anywhere {
     margin-bottom: 1em ;
 }
 
+div.footer-poweredby-python-anywhere a {
+    color: var(--color-text-footer-poweredby-python-anywhere) ;
+}
+
 div.footer-poweredby-python-anywhere img {
     vertical-align: middle ;
 }
 
-body {
-    background-color: var( --color-backround-page);
-  }
+/* Styles in common among two or more templates */
+
+div.major-heading-title {
+    text-align: center;
+    font-size: 1em ;
+}
+
+/* Styles for variations-table page */
+
+/* Welcome block */
+
+div.welcome {
+    font-family: var(--font-family-serif);
+    width: 80%;
+    max-width: 40em ;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto ;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-style: dotted ;
+    padding: 0 1em 1em 1em ;
+}
+
+p.welcome-header {
+    font-weight: bolder;
+    font-size: larger;
+}
+
+p.welcome-content {
+    text-align: left;
+}
+
+div.welcome-hide {
+    display: none ;
+}
+
+/* Grid layout */
+div.repertoire-visualization {
+    display: grid ;
+    grid-template-columns: 500px 1fr ;
+    grid-template-rows: 500px auto 1fr ;
+    grid-column-gap: 3em ;
+}
+
+.chess-board-area {
+    grid-column: 1 ;
+    grid-row: 1 ;
+}
+
+.variations-table {
+    grid-column: 2 ;
+    grid-row: 1 / span 3 ;
+}
+
+div.fen-area {
+    grid-column: 1 ;
+    grid-row: 2 ;
+}
+
+/* Styles for repertoire-visualization container */
+
+div.repertoire-visualization {
+    background-color: var(--color-backround-page);
+    padding: 0 2em 0 2em ;
+    margin-top: 2em ;
+}
+
+.repertoire-visualization > * {
+    width: auto;
+    margin: 0;
+}
+
+/* Styles for variation table */
+
+div.variations_table_title {
+    text-align: center;
+    font-size: 0.75em
+}
+
+.variations_table_title h1 {
+    margin-top: 0 ;
+}
+
+table.variations-table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    font-family: var(--font-family-sans);
+}
+
+div.variations-table {
+    font-size: x-large;
+    text-align: center;
+    font-family: var(--font-family-sans) ;
+}
+
+span.variations-table-instruction-row {
+    font-size: smaller;
+    font-weight: normal;
+    /* font-style: italic; */
+    white-space: nowrap;
+    display: inline-block;
+    padding-bottom: 1.5em;
+}
+
+span.variations-table-instruction-row-text {
+    font-size: smaller ;
+    font-weight: normal ;
+    font-style: italic ;
+    display: inline-block ;
+    padding-bottom: 1.5em ;
+    white-space: normal ;
+}
+
+table.variations-table tr.variation:hover{
+    background-color: var(---color-alt-rows-background-color-on-hover) ;
+}
+
+/* Hides the faux row */
+tr.variation.faux-row {
+    visibility: collapse;
+}
+
+/* WARNING: This should be more specifically targeted than ALL table cells (no matter where they are, or on what page). */
+/* I opened issue #12 on this. */
+td {
+    width: 3em;
+    text-align: center;
+}
+
+td.mainline-black {
+    padding-right: 0.5em;
+}
+
+td.mainline-white-nonnull,
+td.mainline-white-null {
+    padding-right: 10px;
+}
+
+td.mainline-white-nonnull,
+td.mainline-white-null,
+td.mainline-black-null,
+td.alt-white {
+    background-color: var(--color-background-move-white);
+}
+
+td.mainline-focus a.alt-anchor {
+    border-color: #0ff ;
+    border-style: solid ;
+    border-radius: 0.5em ;
+    box-shadow: 0px 0px 10px 10px #0ff;
+}
+
+td.alt {
+    text-align: right;
+}
+
+td.mainline-black-nonnull,
+td.alt-black {
+    background-color: var(--color-background-move-black);
+}
+
+td.mainline-black {
+    border-right: black  3px solid;
+}
+
+td.alt:hover {
+    outline-style: solid ;
+    outline-color: var(--color-alt-hover);
+    outline-width: var(--width-alt-hover);
+}
+
+td.fullmovenumber {
+    width: 1.8em;
+    text-align: right;
+    padding-right: 15px;
+}
+
+a.alt-anchor {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    width: 100%;
+}
+
+.alt-0 {
+    color: var(--color-level-0);
+}
+
+.alt-1 {
+    color: var(--color-level-1);
+}
+
+.alt-2 {
+    color: var(--color-level-2);
+}
+
+.alt-3 {
+    color: var(--color-level-3);
+}
+
+.alt-4 {
+    color: var(--color-level-4);
+}
+
+.alt-5 {
+    color: var(--color-level-5);
+}
+
+.alt-6 {
+    color: var(--color-level-6);
+}
+
+.alt-7 {
+    color: var(--color-level-7);
+}
+
+.alt-8 {
+    color: var(--color-level-8);
+}
+
+.alt-9 {
+    color: var(--color-level-9);
+}
+
+.alt-10 {
+    color: var(--color-level-10);
+}
+
+/* Styles for chess-board area */
+
+div.chess-board {
+    min-width: 600px;
+}
+
+div.chess-board-image {
+    background-color: purple ;
+    object-fit: cover ;
+}
+
+img.chess-board-image {
+    width: 300px;
+}
+
+/* Styles for fen area */
+
+div.fen-area {
+    text-align: left ;
+    font-size: 0.95em ;
+    border-style: solid ;
+    margin: 10px 0 10px 0 ;
+    font-family: var(--font-family-sans);
+}
+
+div.fen-area::before {
+    content: "FEN" ;
+    color: var(--color-backround-page) ;
+    background-color: gray ;
+    padding-right: 5px ;
+    padding-bottom: 5px ;
+    border-radius: 0 0 10px 0px;
+}
+
+div.fen-area p {
+    font-size: 0.85em ;
+    text-align: center ;
+}
+
+/* Styles for text-comments area */
+
+.text-comments-area {
+    grid-column: 1 ;
+    grid-row: 3 ;
+}
+
+div.text-comments-area {
+    font-family: var(--font-family-sans);
+    background-color: var(--color-background-text-comments) ;
+    margin-bottom: 15px ;
+    font-size: larger ;
+}
+
+div.current-move-to-display-in-comments-text-area {
+    text-align: center ;
+    font-weight: bold ;
+    font-size: larger ;
+}
+
+
+/* I've been unable to get the SVG to scale */
+/* div.text-comments-area::before {
+    /* content: "ANNOTATIONS" */
+    /* content: url(https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg);
+    height: 50px ; */
+/* } */
+
+/* .text-comments-area { */
+    /* width: 50px ; */
+    /* background-image: url(var(--url-image-thought-bubble-svg)); */
+/* } */
+
+/* div.development-promote-option {
+    font-size: x-large;
+    text-align: center;
+    padding: 12px;
+} */
+
+
+/* *********************************** */
+
+/* Styles for report.html template */
 
 div.links-to-report-sections {
     width: 50%;
@@ -162,7 +523,11 @@ li.link-to-report-section {
     text-align: center ;
 }
 
-table.report-component {
+div.report-summary {
+    width: 100%;
+}
+
+table.report-summary {
     table-layout: auto;
     border-collapse: collapse;
     margin-left: auto;
@@ -170,11 +535,7 @@ table.report-component {
     margin-bottom: 20px;
 }
 
-div.report-summary {
-    width: 100%;
-}
-
-table.report-summary {
+table.report-component {
     table-layout: auto;
     border-collapse: collapse;
     margin-left: auto;
@@ -205,7 +566,6 @@ td.report-summary-item-value {
     text-align: right;
     width: 3em;
 }
-
 
 div.table-note {
     width: 50%;
@@ -279,8 +639,6 @@ td.length-histogram-item-frequency {
     border-spacing:1em 0;
 }
 
-/* ============================================================================ */
-
 th.edges-histogram-header-length {
     text-align: center;
 }
@@ -314,179 +672,9 @@ td.edges-histogram-item-frequency {
     border-spacing:1em 0;
 }
 
-/* ============================================================================ */
-
-table.variations-table {
-    border-collapse: collapse;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    font-family: var(--font-family-sans);
-}
-
-div.site_logo {
-    text-align: center;
-}
-
-.site_logo img {
-    width: var(--width-site-logo) ;
-    max-width: var(--width-site-logo-max) ;
-}
 
 
-div.variations_table_title {
-    text-align: center;
-    font-size: 0.75em
-}
-
-div.site-footer {
-    font-family: var(--font-family-sans);
-    text-align: center;
-    background-color: var(--color-background-footer);
-    box-sizing: border-box; 
-    padding-top: var(--padding-div-footer); 
-    padding-bottom: var(--padding-div-footer); 
-}
-
-.site-footer p,
-.site-footer a {
-    color: var(--color-text-footer);
-    text-decoration: none;
-}
-
-td {
-    width: 3em;
-    text-align: center;
-}
-
-table.variations-table tr.variation:hover{
-    background-color: rgba(0, 0, 255, 0.2);
-}
-
-span.variations-table-instruction-row {
-    font-size: smaller;
-    font-weight: normal;
-    /* font-style: italic; */
-    white-space: nowrap;
-    display: inline-block;
-    padding-bottom: 1.5em;
-}
-
-span.variations-table-instruction-row-text {
-    font-size: smaller ;
-    font-weight: normal ;
-    font-style: italic ;
-    display: inline-block ;
-    padding-bottom: 1.5em ;
-    white-space: normal ;
-}
-
-/* Hides the faux row */
-tr.variation.faux-row {
-    visibility: collapse;
-}
-
-td.mainline-black {
-    padding-right: 0.5em;
-}
-
-td.mainline-white-nonnull,
-td.mainline-white-null {
-    padding-right: 10px;
-}
-
-
-td.mainline-white-nonnull,
-td.mainline-white-null,
-td.mainline-black-null,
-td.alt-white {
-    background-color: var(--color-background-move-white);
-}
-
-td.mainline-focus a.alt-anchor {
-    border-color: #0ff ;
-    border-style: solid ;
-    border-radius: 0.5em ;
-    box-shadow: 0px 0px 10px 10px #0ff;
-}
-
-td.alt {
-    text-align: right;
-}
-
-td.mainline-black-nonnull,
-td.alt-black {
-    background-color: var(--color-background-move-black);
-}
-
-td.mainline-black {
-    border-right: black  3px solid;
-}
-
-td.alt:hover {
-    outline-style: solid ;
-    outline-color: var(--color-alt-hover);
-    outline-width: var(--width-alt-hover);
-}
-
-
-td.fullmovenumber {
-    width: 1.8em;
-    text-align: right;
-    padding-right: 15px;
-}
-
-a.alt-anchor {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    width: 100%;
-}
-
-.alt-0 {
-    color: var(--color-level-0);
-}
-
-.alt-1 {
-    color: var(--color-level-1);
-}
-
-.alt-2 {
-    color: var(--color-level-2);
-}
-
-.alt-3 {
-    color: var(--color-level-3);
-}
-
-.alt-4 {
-    color: var(--color-level-4);
-}
-
-.alt-5 {
-    color: var(--color-level-5);
-}
-
-.alt-6 {
-    color: var(--color-level-6);
-}
-
-.alt-7 {
-    color: var(--color-level-7);
-}
-
-.alt-8 {
-    color: var(--color-level-8);
-}
-
-.alt-9 {
-    color: var(--color-level-9);
-}
-
-.alt-10 {
-    color: var(--color-level-10);
-}
-
+/* Styles for dump_pgn.html template */
 div.dump_pgn {
     font-family: var(--font-family-sans);
     text-align: left;
@@ -494,125 +682,19 @@ div.dump_pgn {
     padding-right: 2em;
     }
 
+/* Under-construction pages */
 .under-construction-text {
     color: var(--color-text-under-construction);
     font-size: var(--fontsize-under-construction);
 }
 
-div.repertoire-visualization {
-    background-color: var(--color-backround-page);
-    display: grid ;
-    grid-template-columns: 500px 1fr ;
-    grid-template-rows: 500px 1fr ;
-    /* grid-template-areas: "chessboard-area variations-table-area" ; */
-    grid-column-gap: 3em ;
-    padding: 0 2em 0 2em ;
-    /* display: flex ;
-    justify-content: center ; */
-}
-
-.chess-board-area {
-    /* grid-area: chessboard-area ; */
-    grid-column: 1 ;
-    grid-row: 1 ;
-}
-
-.variations-table {
-    /* grid-area: variations-table-area ; */
-    grid-column: 2 ;
-    grid-row: 1 / span 2 ;
-}
-.repertoire-visualization > * {
-    width: auto;
-    margin: 0;
-}
-
-div.variations-table {
-    font-size: x-large;
-    text-align: center;
-}
-
-div.chess-board-area {
-    /* background-color: lightblue; */
-    /* min-width: 400px ;
-    max-width: 50% ; */
-}
-
-div.chess-board {
-    min-width: 600px;
-}
-
-div.chess-board-image {
-    /* max-width: 35% ; */
-    /* min-width: 1500px ; */
-    background-color: purple ;
-    object-fit: cover ;
-}
-
-img.chess-board-image {
-    /* max-width: 35% ; */
-    width: 300px;
-}
-
-.text-comments-area {
-    grid-column: 1 ;
-    grid-row: 2 ;
-}
-
-div.text-comments-area {
-    background-color: var(--color-background-text-comments) ;
-}
-
-
-/* I've been unable to get the SVG to scale */
-/* div.text-comments-area::before {
-    /* content: "ANNOTATIONS" */
-    /* content: url(https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg);
-    height: 50px ; */
-/* } */
-
-/* .text-comments-area { */
-    /* width: 50px ; */
-    /* background-image: url(var(--url-image-thought-bubble-svg)); */
-/* } */
-
-/* div.development-promote-option {
-    font-size: x-large;
-    text-align: center;
-    padding: 12px;
-} */
-
 .under-contruction-banner img {
     width: var(--width-construction-banner)
 }
 
+
+/* Vestigial? */
 div.readme {
     margin: 2em 2em 2em 2em ;
     font-size: 18px ;
-}
-
-div.welcome {
-    font-family: var(--font-family-serif);
-    width: 80%;
-    max-width: 40em ;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto ;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    border-style: dotted ;
-    padding: 0 1em 1em 1em ;
-}
-
-p.welcome-header {
-    font-weight: bolder;
-    font-size: larger;
-}
-
-p.welcome-content {
-    text-align: left;
-}
-
-div.welcome-hide {
-    display: none ;
 }

@@ -32,18 +32,20 @@
             {% for row in list_of_rows_for_variations_table  %}
                 {{ row | safe }}
             {% endfor %}
+
         </table>
     </div>
     <div class="repertoire-visualization-area chess-board-area">
         <div class="chessboard">
             <!-- <div class="chessboard-image"> -->
-                <img class="chessboard-image" src="https://backscattering.de/web-boardimage/board.svg?fen=5r1k/1b4pp/3pB1N1/p2Pq2Q/PpP5/6PK/8/8&lastMove=f4g6&check=h8&colors=lichess-blue&size=500">
+                <!-- <img class="chessboard-image" src="https://backscattering.de/web-boardimage/board.svg?fen=5r1k/1b4pp/3pB1N1/p2Pq2Q/PpP5/6PK/8/8&lastMove=f4g6&check=h8&colors=lichess-blue&size=500&coordinates=True&orientation=black"> -->
+                <img class="chessboard-image" src="{{ chessboard_url_to_fetch }}">
             <!-- </div> -->
         </div>
     </div>
     <div class="text-comments-area">
-        <div class="text-comments-icon-area">
-            <img class="text-comments-icon" style="width:30px; padding-top: 10px; padding-left: 10px" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg">
+        <!-- <div class="text-comments-icon-area"> -->
+            <!-- <img class="text-comments-icon" style="width:30px; padding-top: 10px; padding-left: 10px" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg"> -->
             <!-- <img class="text-comments-icon" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg"> -->
         <!-- </div> -->
         <div class="precomment">
@@ -55,6 +57,9 @@
         <div class="postcomment">
             {{ post_move_comment | safe }}
         </div>
+    </div>
+    <div class="fen-area">
+        <p>{{ fenstring  }}</p>
     </div>
 </div>
 
