@@ -45,15 +45,15 @@
         <div class="text-comments-icon-area">
             <img class="text-comments-icon" style="width:30px; padding-top: 10px; padding-left: 10px" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg">
             <!-- <img class="text-comments-icon" src="https://gistcdn.githack.com/jimratliff/9c17d6a219a30375b8ebad006ae617fe/raw/3018b9daee5aeff1e86894d54f295264a5c5356c/thought_bubble.svg"> -->
-        </div>
+        <!-- </div> -->
         <div class="precomment">
-            Here is some text! {{ precomment | safe }}
+            {{ pre_move_comment | safe }}
         </div>
         <div class="current-move-to-display-in-comments-text-area">
-            {{ current_move | safe }}
+            {{ movetext_string | safe }}
         </div>
         <div class="postcomment">
-            Here is some more text {{ postcomment | safe }}
+            {{ post_move_comment | safe }}
         </div>
     </div>
 </div>

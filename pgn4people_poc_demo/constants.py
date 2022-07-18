@@ -67,6 +67,7 @@ BLACK_MOVE_PREFIX = "…"
 # Type of movetext representation, "san", "lan"
 MOVETEXT_KEY_FOR_MAINLINE = "san"
 MOVETEXT_KEY_FOR_ALTERNATIVES = "san"
+MOVETEXT_KEY_FOR_TEXT_COMMENTS_BOX = "lan"
 
 # Chess constants
 FEN_INITIAL = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'

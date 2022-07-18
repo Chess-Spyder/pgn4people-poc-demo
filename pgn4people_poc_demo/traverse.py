@@ -73,7 +73,12 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_fr
     return render_template("traverse/variations_table.html", 
                            target_node_id = target_node_id,
                            list_of_rows_for_variations_table = list_of_rows_for_variations_table,
-                           welcome_display_classname = welcome_display_classname)
+                           welcome_display_classname = welcome_display_classname,
+                           fenstring = chessboard_fen,
+                           chessboard_url_to_fetch = chessboard_url,
+                           movetext_string = movetext_string,
+                           pre_move_comment = precomment,
+                           post_move_comment = postcomment)
     # return render_template("traverse/variations_table.html", target_node_id = target_node_id)
 
 
