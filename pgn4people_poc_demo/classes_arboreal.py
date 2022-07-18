@@ -58,6 +58,7 @@ class GameNode:
                  halfmovenumber=None,
                  originating_node_id=None,
                  preceding_comment = None,
+                 comment = None,
                  fen = None,
                  choice_id_at_originatingnode=None,
                  node_id=None):
@@ -67,6 +68,7 @@ class GameNode:
         self.halfmovenumber = halfmovenumber
         self.originatingnode_id = originating_node_id
         self.preceding_comment = preceding_comment
+        self.comment = comment
         self.fen = fen
         self.number_of_edges = 0
         self.edgeslist = []
