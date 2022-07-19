@@ -1,6 +1,6 @@
 # pgn4people: A web-based demo of a better way to view PGN chess games
 
-<img width="1274" alt="Screeenshot_pgn4people_demo_2022_07_19" src="https://user-images.githubusercontent.com/8410716/179790645-e354c9fc-8c29-4ef0-94cb-3b7ce9504e78.png">
+![Screeenshot_pgn4people_demo_2022_07_19](https://user-images.githubusercontent.com/8410716/179792598-217b32e8-4d72-44e9-baef-1bdaafff6545.jpg)
 
 This repository is the code for a [Flask](https://flask.palletsprojects.com) web app currently hosted on [PythonAnywhere](https://www.pythonanywhere.com/). The app  can be visited and explored at [pgn4people.app](http://127.0.0.1:4991/).
 
