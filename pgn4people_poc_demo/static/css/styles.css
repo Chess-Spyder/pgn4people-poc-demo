@@ -42,6 +42,7 @@
     --width-site-logo-max: 40em ;
     --width-construction-banner: 40%;
     --width-alt-hover: 2px ;
+    --max-width-readability: 80ch ;
 
     --padding-div-footer: 5px;
 
@@ -683,6 +684,22 @@ div.dump_pgn {
     padding-right: 2em;
     }
 
+/* Styles for About pgn4people */
+div.readme {
+    margin: 2em 2em 2em 2em ;
+    font-size: 1em ;
+    max-width: var(--max-width-readability) ;
+}
+
+h1.about-pgn4people-title {
+    text-align: center;
+    margin-bottom: 0 ;
+}
+h2.about-pgn4people-title {
+    text-align: center;
+    margin-top: 0 ;
+}
+
 /* Under-construction pages */
 .under-construction-text {
     color: var(--color-text-under-construction);
@@ -694,8 +711,5 @@ div.dump_pgn {
 }
 
 
-/* Vestigial? */
-div.readme {
-    margin: 2em 2em 2em 2em ;
-    font-size: 18px ;
-}
+
+
