@@ -43,8 +43,11 @@ def extract_text_comments_for_current_node(nodedict, node_id_for_board):
 
         postcomment = node_to_harvest_comments.comment
     else:
+        # Reached from root route, where node_id_for_board = 0
         movetext_string = ""
-        precomment = None
+        precomment = nodedict[0].comment
+        if not precomment:
+            precomment = DEFAULT_WELCOME_TEXT_FOR_TEXT_ANNOTATION_AREA
         postcomment = None   
 
     if not precomment:

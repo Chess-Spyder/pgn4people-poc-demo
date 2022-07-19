@@ -140,5 +140,7 @@ SVG_BOARD_SIZE_VALUE = "500"
 SVG_BOARD_COORDINATES_BOOLEAN_VALUE = "true"
 SVG_BOARD_ORIENTATION_VALUE = "white"
 
+# Paramters for text-annotation area
+DEFAULT_WELCOME_TEXT_FOR_TEXT_ANNOTATION_AREA = "Welcome to pgn4people!"
 
 
