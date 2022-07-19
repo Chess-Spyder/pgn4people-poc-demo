@@ -1,11 +1,17 @@
 # Status and To-Dos
-## 7/14/2022, v.1.1.0 Transitioned to python-chess for the parsing of the PGN file
+
+* 7/19/2022, v.1.2.0 Added graphical board, text-annotation area, FEN-string area, navigation of main line (in 
+addition to previous navigation of alternative variations)
+
+* 7/14/2022, v.1.1.0 Transitioned to python-chess for the parsing of the PGN file
 
 # To Dos
+
+# Completed To Dos
 ## ✅ GameNode: Add `.fen` attribute to `GameNode` and populate it when nodes are created
 Each node needs to store the FEN corresponding to the position when the node is reached.
 
-## ❑ Print FEN for chosen node-to-elevate to web page
+## ✅ Print FEN for chosen node-to-elevate to web page
 This is just as an intermediate step, to demonstrate capability.
 
 ## ✅ Enhance /node/nnn route URL to support specifying a distinguished halfmove
@@ -26,6 +32,6 @@ In this way, the user can navigate *all* moves, mainline and alternatives, by cl
 ## ✅ Variations Table: Change layout of variations_table.html to provide space on l.h.s. for chessboard
 pgn4people_poc_demo/templates/traverse/variations_table.html
 
-## ❑ Display current position on chessboard
+## ✅ Display current position on chessboard
 
-## ❑ Display comment for current move in text field below chessboard
+## ✅ Display comment for current move in text field below chessboard
