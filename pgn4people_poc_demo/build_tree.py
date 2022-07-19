@@ -110,6 +110,8 @@ def buildtree(tokenized_game):
                 comment_at_beginning_of_a_variation = token[1]
                 gamenodes[INITIAL_NODE_ID].comment = comment_at_beginning_of_a_variation
                 most_recently_found_token_type = COMMENT_INDICATOR
+
+                # Resets comment_at_beginning_of_a_variation
                 comment_at_beginning_of_a_variation = None
                 continue # Proceeds to the next token
 
@@ -121,8 +123,6 @@ def buildtree(tokenized_game):
         
             comment_text = token[1]
 
-            most_recently_found_token_type = COMMENT_INDICATOR
-
             if most_recently_found_token_type == OPEN_VARIATION_INDICATOR:
                 comment_at_beginning_of_a_variation = comment_text
             else:
@@ -130,6 +130,8 @@ def buildtree(tokenized_game):
                 # followed a MOVETEXT_INDICATOR).
                 # We attach this comment to the node just created for the recently preceding movetext.
                 new_node.comment = comment_text
+            
+            most_recently_found_token_type = COMMENT_INDICATOR
             
             continue
 
@@ -245,7 +247,7 @@ def buildtree(tokenized_game):
                                 f"½#: {current_halfmovenumber[depth]}, token: {token}")
                 fatal_pgn_error(error_string)
 
-            most_recently_found_token_type == OPEN_VARIATION_INDICATOR
+            most_recently_found_token_type = OPEN_VARIATION_INDICATOR
 
             # A “(” begins a new variation at a depth one greater than the movetext immediately before the “(”.
             #   Thus, we increase the depth.
