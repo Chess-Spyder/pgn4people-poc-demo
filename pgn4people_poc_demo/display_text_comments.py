@@ -14,7 +14,8 @@ def extract_text_comments_for_current_node(nodedict, node_id_for_board):
 
     # Use of this crickets string is only for development, until there are actual comments in the
     # sample PGN
-    crickets = " 🦗 🦗 🦗 … "
+    # crickets = " 🦗 🦗 🦗 … "
+    crickets = ""
 
     node_to_harvest_comments = nodedict[node_id_for_board]
 
@@ -30,7 +31,16 @@ def extract_text_comments_for_current_node(nodedict, node_id_for_board):
 
         movetext_string = edge_for_movetext.movetext_dict[MOVETEXT_KEY_FOR_TEXT_COMMENTS_BOX]
 
-        precomment = node_to_harvest_comments.preceding_comment
+        # Consider a comment at the very beginning of the PGN. It will be interpreted as a comment that belongs to the 
+        # game or, alternatively, to all of the possible first moves for White.
+        # The function buildtree() stores this comment in the initial node’s comment attribute.
+        # Thus, when id_of_node_leading_to_node_to_harvest_comments==0, we take nodedict[0].comment and use it as the pre-comment for whichever
+        # first move by White was chosen.
+        if id_of_node_leading_to_node_to_harvest_comments == 0:
+            precomment = nodedict[0].comment
+        else:
+            precomment = node_to_harvest_comments.preceding_comment
+
         postcomment = node_to_harvest_comments.comment
     else:
         movetext_string = ""
