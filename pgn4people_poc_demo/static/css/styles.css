@@ -473,6 +473,7 @@ div.text-comments-area {
     background-color: var(--color-background-text-comments) ;
     margin-bottom: 15px ;
     font-size: larger ;
+    padding: 1em ;
 }
 
 div.current-move-to-display-in-comments-text-area {
