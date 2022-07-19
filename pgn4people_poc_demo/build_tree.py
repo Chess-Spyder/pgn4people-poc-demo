@@ -219,6 +219,7 @@ def buildtree(tokenized_game):
             index_of_edge_at_originating_node = len(gamenodes[originating_node_id].edgeslist) - 1
 
             # Create new node corresponding to the destination reached if the current token's move is chosen
+
             new_node = GameNode(depth = depth,
                                 halfmovenumber = current_halfmovenumber[depth],
                                 originating_node_id = current_originatingnode_id[depth],

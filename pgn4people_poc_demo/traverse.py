@@ -3,7 +3,7 @@ Routes associated with the PGN file and raversing the tree: '/node/nnn',
 '/report', and 'dump_pgn'
 """
 
-import logging
+# import logging
 import os
 
 import chess.pgn
@@ -14,19 +14,14 @@ from flask import render_template
 
 from . build_tree import buildtree
 from . classes_arboreal import GameTreeReport
-
 from . import constants
 from . display_chess_board import form_url_for_chessboard_svg
 from . display_text_comments import extract_text_comments_for_current_node
-from . process_pgn_file import pgn_file_not_found_fatal_error
 from . game_tree import characterize_gametree
 from . game_tree import deviation_history_of_node
-from . variations_table import construct_list_of_rows_for_variations_table
-
-# from . python_chess_utilities import debug_output_of_tokenized_game
-
 from . pgn_tokenizer import PGNTokenizer
-
+from . process_pgn_file import pgn_file_not_found_fatal_error
+from . variations_table import construct_list_of_rows_for_variations_table
 
 # NOTE: As of 7/1/2022
 # Ultimately I want to perform the tree-creation only once and cache it.
@@ -146,15 +141,6 @@ def prepare_nodedict_for_tranversal():
 
     # Parse PGN file and return a TokenizedGame object
     tokenized_game  = get_next_parsed_game_from_PGN_file_using_custom_visitor(pgn_filepath)
-
-    # For DEBUG
-    # debug_output_of_tokenized_game(tokenized_game)
-
-    # # Get string of PGN from built-in PGN file
-    # string_read_from_file = read_static_pgn_file()
-
-    # # Grab the movetext from game #1 by stripping headers and stripping textual annotations; then tokenize that string.
-    # tokenlist = clean_and_parse_string_read_from_file(string_read_from_file)
 
     # Builds tree from tokenized_game object
     nodedict = buildtree(tokenized_game)

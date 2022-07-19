@@ -90,6 +90,4 @@ def form_url_for_chessboard_svg(nodedict, node_id_for_board):
     if add_checked_king_to_url:
         url_to_fetch += "&" + checked_url_string
 
-    # logging.debug(f"Here’s the URL I computed: {url_to_fetch}")
-
     return (url_to_fetch, fen_value)
