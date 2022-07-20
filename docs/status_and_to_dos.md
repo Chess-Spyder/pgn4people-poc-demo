@@ -6,6 +6,19 @@ addition to previous navigation of alternative variations)
 * 7/14/2022, v.1.1.0 Transitioned to python-chess for the parsing of the PGN file
 
 # To Dos
+* ❑ Add a concept of sessions
+* ❑ Add a user database
+* ❑ Add ability to upload a PGN
+* ❑ Add ability to store a compiled game tree as a JSON
+* ❑ Add ability to export a compiled game tree as a PGN file
+* ❑ Reprogram `buildtree()` to acknowledge transpositions. (This probably requires either (a) a fork or (b) conditional logic so that the code works whether or not transpositions are acknowledged.)
+* ❑ Add ability to import an additional PGN file to be integrated with an existing compiled game tree. (Requires that `buildtree()` has been reprogrammed to acknowledge transpositions.)
+* ❑ Add front-end interface to allow edits of the game tree via moving pieces using the mouse.
+* ❑ Add ability to edit the game tree via the user interface.
+* ❑ Optimizations
+    * ❑ Roll my own chess board graphic, so that the entire SVG doesn’t need to be fetched each move. (I should need constituent graphics only for each piece type/color combination.)
+    * ❑ Cache the computation of the game tree across a user’s queries.
+
 
 # Completed To Dos
 ## ✅ GameNode: Add `.fen` attribute to `GameNode` and populate it when nodes are created
