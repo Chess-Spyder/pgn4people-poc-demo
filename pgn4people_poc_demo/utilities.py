@@ -48,6 +48,80 @@ def fullmovenumber_from_halfmove(halfmovenumber):
     fullmovenumber = (halfmovenumber + 1) // 2
     return fullmovenumber
 
+def is_move_nag(nag_int):
+    """
+    Returns True if the given NAG (as an integer) describes the MOVE, rather than the resulting position.
+
+    NAGs beginning at $10 (“=”) describe the position rather than the move.
+    """
+    if nag_int:
+        if nag_int < 10:
+            return True
+    else:
+        return False
+
+
+def nag_as_string(nag_int):
+    """
+    Returns the string equivalent of the given integer interpreted as a NAG, when that NAG has
+    a string equivalent. Otherwise, returns empty string.
+    """
+
+    if nag_int in constants.NAG_TO_STRING_DICT.keys():
+        return constants.NAG_TO_STRING_DICT[nag_int]
+    else:
+        return ""
+
+
+def nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags):
+    """
+    Returns the string equivalent of a NAG (expressed by given integer) based on preference settings
+    and whether the NAG is a (a) move-specific NAG or (b) a position-specific NAG.
+    """
+
+    if include_all_nags or (include_move_nags and is_move_nag(nag_int)):
+        return nag_as_string(nag_int)
+    else:
+        return ""
+
+
+def nag_as_string_for_mainline(nag_int):
+    """
+    Returns string equivalent for specified NAG based on (a) the type of NAG and (b) codified
+    preferences for whether that kind of NAG should be displayed for the main line in the variations
+    table.
+    """
+
+    include_all_nags = constants.DO_DISPLAY_ALL_NAGS_IN_MAINLINE
+    include_move_nags = constants.DO_DISPLAY_MOVE_NAGS_IN_MAINLINE
+    string = nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
+    return string
+
+
+def nag_as_string_for_alternatives(nag_int):
+    """
+    Returns string equivalent for specified NAG based on (a) the type of NAG and (b) codified
+    preferences for whether that kind of NAG should be displayed for the alternative moves in the
+    variations table.
+    """
+
+    include_all_nags = constants.DO_DISPLAY_ALL_NAGS_IN_ALTERNATIVES
+    include_move_nags = constants.DO_DISPLAY_MOVE_NAGS_IN_ALTERNATIVES
+    string = nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
+    return string
+
+
+def nag_as_string_for_text_annotation_area(nag_int):
+    """
+    Returns string equivalent for specified NAG based on (a) the type of NAG and (b) codified
+    preferences for whether that kind of NAG should be displayed for the current move in the
+    text-annotation area.
+    """
+
+    include_all_nags = constants.DO_DISPLAY_ALL_NAGS_IN_TEXT_ANNOTATION_AREA
+    include_move_nags = constants.DO_DISPLAY_MOVE_NAGS_IN_TEXT_ANNOTATION_AREA
+    string = nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
+    return string
 
 def id_text_between_first_two_blankish_lines (string_from_file):
     """

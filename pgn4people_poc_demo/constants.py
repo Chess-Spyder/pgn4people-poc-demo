@@ -143,4 +143,50 @@ SVG_BOARD_ORIENTATION_VALUE = "white"
 # Paramters for text-annotation area
 DEFAULT_WELCOME_TEXT_FOR_TEXT_ANNOTATION_AREA = "Welcome to pgn4people!"
 
+# NAG-RELATED CONSTANTS
+# Whether to display (a) all move-appraising NAGs or (b) ALL NAGs in the variations table or in the text-annotation
+# area.
 
+DO_DISPLAY_ALL_NAGS_IN_ALTERNATIVES = False
+DO_DISPLAY_MOVE_NAGS_IN_ALTERNATIVES = True
+
+DO_DISPLAY_ALL_NAGS_IN_MAINLINE = False
+DO_DISPLAY_MOVE_NAGS_IN_MAINLINE = True
+
+DO_DISPLAY_ALL_NAGS_IN_TEXT_ANNOTATION_AREA = True
+DO_DISPLAY_MOVE_NAGS_IN_TEXT_ANNOTATION_AREA = True
+
+
+# Dictionary of string equivalent to those NAGs with widely accepted string equivalents
+# See https://en.wikipedia.org/wiki/Numeric_Annotation_Glyphs
+NAG_TO_STRING_DICT = {
+                        1:  "!",
+                        2:  "?",
+                        3:  "!!",
+                        4:  "??",
+                        5:  "!?",
+                        6:  "?!",
+                        7:  "□",
+                        10: "=",
+                        13: "∞",
+                        14: "⩲",
+                        15: "⩱",
+                        16: "±",
+                        17: "∓",
+                        18: "+−",
+                        19: "−+",
+                        22: "⨀",
+                        23: "⨀",
+                        26: "○",
+                        27: "○",
+                        32: "⟳",
+                        33: "⟳",
+                        36: "↑",
+                        37: "↑",
+                        40: "→",
+                        41: "→",
+                        132: "⇆",
+                        133: "⇆",
+                        138: "⨁",
+                        139: "⨁",
+                     }

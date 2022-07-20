@@ -30,6 +30,8 @@ from . constants import (BLACK_MOVE_DEFERRED,
                          VARTABLE_MINIMUM_NUMBER_OF_ALTERNATIVES_TO_DISPLAY,
                          )
 from . game_tree import compile_movetext_elements_for_output_for_single_node
+from . utilities import nag_as_string_for_mainline
+from . utilities import nag_as_string_for_alternatives
 
 
 def construct_list_of_rows_for_variations_table(nodedict, deviation_history, target_node_id, node_id_for_board):
@@ -143,7 +145,7 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line, target_no
 
     # Add White mainline halfmove
     # mainline_edge_white = variations_line.mainline_edge_white
-    (movetext_anchor_string, css_class_names_string) = format_mainline_edge(
+    (movetext_anchor_string, css_class_names_string) = format_anchor_mainline_edge(
                                                                         mainline_edge_white,
                                                                         is_white = True,
                                                                         target_node_id = target_node_id,
@@ -154,7 +156,7 @@ def string_of_HTML_for_single_row_of_variations_table(variations_line, target_no
 
     # Add Black mainline halfmove
     mainline_edge_black = variations_line.mainline_edge_black
-    (movetext_anchor_string, css_class_names_string) = format_mainline_edge(
+    (movetext_anchor_string, css_class_names_string) = format_anchor_mainline_edge(
                                                                         mainline_edge_black,
                                                                         is_white = False,
                                                                         target_node_id = target_node_id,
@@ -193,7 +195,7 @@ def HTML_string_for_variations_table_cell(movetext, list_of_class_names):
     return string_for_cell
 
 
-def format_mainline_edge(edge, is_white, target_node_id, incoming_node_id_for_board):
+def format_anchor_mainline_edge(edge, is_white, target_node_id, incoming_node_id_for_board):
     """
     Provides the corresponding movetext, wrapped in an `<a>` anchor, for the supplied mainline edge and corresponding
     CSS class names for its cell.
@@ -217,6 +219,12 @@ def format_mainline_edge(edge, is_white, target_node_id, incoming_node_id_for_bo
         outgoing_node_id_for_board = destination_node_id
 
         movetext_string = edge.movetext_dict[MOVETEXT_KEY_FOR_MAINLINE]
+
+        nag_to_append = nag_as_string_for_mainline(edge.nag)
+
+        if nag_to_append:
+            movetext_string += nag_to_append
+
         movetext_anchor_string = form_anchor_string_for_vartable_halfmove(
                                                                 movetext_string = movetext_string,
                                                                 next_target_node_id = target_node_id,
@@ -260,6 +268,11 @@ def format_anchor_alternative_edge(edge, is_white):
             E.g.: 'alt alt-black alt-0'
     """
     movetext_string = edge.movetext_dict[MOVETEXT_KEY_FOR_ALTERNATIVES]
+
+    nag_to_append = nag_as_string_for_alternatives(edge.nag)
+
+    if nag_to_append:
+        movetext_string += nag_to_append
 
     # destination_node_id is included because it is included in the route URL for the mainline moves
     destination_node_id = edge.destination_node_id

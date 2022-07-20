@@ -4,6 +4,7 @@ Module for displaying text comments on variations-table page
 
 from . constants import DEFAULT_WELCOME_TEXT_FOR_TEXT_ANNOTATION_AREA
 from . constants import MOVETEXT_KEY_FOR_TEXT_COMMENTS_BOX
+from . utilities import nag_as_string_for_text_annotation_area
 
 
 def extract_text_comments_for_current_node(nodedict, node_id_for_board):
@@ -29,6 +30,11 @@ def extract_text_comments_for_current_node(nodedict, node_id_for_board):
         edge_for_movetext = node_leading_to_node_to_harvest_comments.edgeslist[choice_id_at_originatingnode]
 
         movetext_string = edge_for_movetext.movetext_dict[MOVETEXT_KEY_FOR_TEXT_COMMENTS_BOX]
+
+        nag_to_append = nag_as_string_for_text_annotation_area(edge_for_movetext.nag)
+
+        if nag_to_append:
+            movetext_string += nag_to_append
 
         # Consider a comment at the very beginning of the PGN. We interpret it as a comment that belongs to the 
         # game or, alternatively, to all of the possible first moves for White.

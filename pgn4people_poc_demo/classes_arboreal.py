@@ -138,6 +138,7 @@ class Edge:
     def __init__(self, movetext_dict, destination_node_id):
         self.movetext_dict = movetext_dict
         self.destination_node_id = destination_node_id
+        self.nag = None
 
 
     def __str__(self):
