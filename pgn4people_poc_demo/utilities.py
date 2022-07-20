@@ -85,7 +85,27 @@ def nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
         return ""
 
 
-def nag_as_string_for_mainline(nag_int):
+def naglist_as_string_when_appropriate(nag_list, include_all_nags, include_move_nags):
+    """
+    Returns the string equivalent of a string of consecutive NAGs (each expressed by given integer)
+    based on preference settings and whether each NAG is a (a) move-specific NAG or (b) a
+    position-specific NAG.
+    """
+
+    if (not nag_list) or ((not include_all_nags) and (not include_move_nags)):
+        return ""
+    
+    string_to_return = ""
+
+    for nag_int in nag_list:
+        is_a_move_nag = is_move_nag(nag_int)
+        if include_all_nags or (include_move_nags and is_a_move_nag):
+            string_to_return += nag_as_string(nag_int)
+    
+    return string_to_return
+
+
+def naglist_as_string_for_mainline(nag_list):
     """
     Returns string equivalent for specified NAG based on (a) the type of NAG and (b) codified
     preferences for whether that kind of NAG should be displayed for the main line in the variations
@@ -94,11 +114,11 @@ def nag_as_string_for_mainline(nag_int):
 
     include_all_nags = constants.DO_DISPLAY_ALL_NAGS_IN_MAINLINE
     include_move_nags = constants.DO_DISPLAY_MOVE_NAGS_IN_MAINLINE
-    string = nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
+    string = naglist_as_string_when_appropriate(nag_list, include_all_nags, include_move_nags)
     return string
 
 
-def nag_as_string_for_alternatives(nag_int):
+def naglist_as_string_for_alternatives(nag_list):
     """
     Returns string equivalent for specified NAG based on (a) the type of NAG and (b) codified
     preferences for whether that kind of NAG should be displayed for the alternative moves in the
@@ -107,11 +127,11 @@ def nag_as_string_for_alternatives(nag_int):
 
     include_all_nags = constants.DO_DISPLAY_ALL_NAGS_IN_ALTERNATIVES
     include_move_nags = constants.DO_DISPLAY_MOVE_NAGS_IN_ALTERNATIVES
-    string = nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
+    string = naglist_as_string_when_appropriate(nag_list, include_all_nags, include_move_nags)
     return string
 
 
-def nag_as_string_for_text_annotation_area(nag_int):
+def naglist_as_string_for_text_annotation_area(nag_list):
     """
     Returns string equivalent for specified NAG based on (a) the type of NAG and (b) codified
     preferences for whether that kind of NAG should be displayed for the current move in the
@@ -120,7 +140,7 @@ def nag_as_string_for_text_annotation_area(nag_int):
 
     include_all_nags = constants.DO_DISPLAY_ALL_NAGS_IN_TEXT_ANNOTATION_AREA
     include_move_nags = constants.DO_DISPLAY_MOVE_NAGS_IN_TEXT_ANNOTATION_AREA
-    string = nag_as_string_when_appropriate(nag_int, include_all_nags, include_move_nags)
+    string = naglist_as_string_when_appropriate(nag_list, include_all_nags, include_move_nags)
     return string
 
 def id_text_between_first_two_blankish_lines (string_from_file):

@@ -136,15 +136,17 @@ def buildtree(tokenized_game):
             continue
 
         if token_type == NAG_INDICATOR:
-            if most_recently_found_token_type != MOVETEXT_INDICATOR:
-                error_string = (f"NAG token encountered immediately after a {token_type} token rather after movetext.",
-                                f"\n½#: {current_halfmovenumber[depth]}, token: {token}")
+            if most_recently_found_token_type not in  (MOVETEXT_INDICATOR, NAG_INDICATOR):
+                error_string = (
+                  f"NAG token encountered immediately after a {token_type} token rather after movetext or another NAG.",
+                  f"\n½#: {current_halfmovenumber[depth]}, token: {token}"
+                               )
                 fatal_pgn_error(error_string)
             
-            most_recently_found_token_type = NAG_INDICATOR
-
             nag_integer = token[1]
-            new_edge.nag = nag_integer
+            new_edge.nag_list.append(nag_integer)
+
+            most_recently_found_token_type = NAG_INDICATOR
 
             continue
         

@@ -126,8 +126,8 @@ class Edge:
     __slots__ = {
         "movetext_dict":
             "Dictionary with multiple textual representations of the movetext",
-        "nag":
-            "The integer part of a NAG attached to the movetext.",
+        "nag_list":
+            "A list of integers, one for each NAG attached to the movetext.",
         "destination_node_id":
             "Description of destination_node_id",
         "reference_index":
@@ -138,7 +138,7 @@ class Edge:
     def __init__(self, movetext_dict, destination_node_id):
         self.movetext_dict = movetext_dict
         self.destination_node_id = destination_node_id
-        self.nag = None
+        self.nag_list = []
 
 
     def __str__(self):
