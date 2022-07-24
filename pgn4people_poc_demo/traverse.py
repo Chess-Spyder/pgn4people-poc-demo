@@ -15,6 +15,7 @@ from flask import render_template
 from . build_tree import buildtree
 from . classes_arboreal import GameTreeReport
 from . import constants
+from . display_chess_board import compile_parameters_for_chessboard_svg
 from . display_chess_board import form_url_for_chessboard_svg
 from . display_text_comments import extract_text_comments_for_current_node
 from . game_tree import characterize_gametree
@@ -56,8 +57,12 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_fr
     else:
         welcome_display_classname = "welcome-hide"
 
-    # Gets (a) URL for the downloadable SVG chess board and (b) FEN for currently focused position
-    (chessboard_url, chessboard_fen) = form_url_for_chessboard_svg(nodedict, node_id_for_board)
+    # Gets parameters for the board to be displayed, including the FEN string
+    parameters_for_board_to_be_displayed = compile_parameters_for_chessboard_svg(nodedict, node_id_for_board)
+    chessboard_fen = parameters_for_board_to_be_displayed.fen_value
+
+    # Gets URL for the downloadable SVG chess board
+    chessboard_url = form_url_for_chessboard_svg(parameters_for_board_to_be_displayed)
 
     # Gets pre- and post-comments for text-annotation area
     (movetext_string, precomment, postcomment) = extract_text_comments_for_current_node(nodedict, node_id_for_board)
@@ -76,7 +81,6 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_fr
                            movetext_string = movetext_string,
                            pre_move_comment = precomment,
                            post_move_comment = postcomment)
-    # return render_template("traverse/variations_table.html", target_node_id = target_node_id)
 
 
 @blueprint.route('/report')
