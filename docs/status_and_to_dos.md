@@ -1,11 +1,16 @@
 # Status and To-Dos
 
+* 7/24/2022, v.1.2.1 Dropped use of the web-boardimage HTTP service at backscattering.de for creating the SVG image of the chess board
+and instead now use chess.svg.board() directly instead.
 * 7/19/2022, v.1.2.0 Added graphical board, text-annotation area, FEN-string area, navigation of main line (in 
 addition to previous navigation of alternative variations)
 
 * 7/14/2022, v.1.1.0 Transitioned to python-chess for the parsing of the PGN file
 
 # To Dos
+* ❑ Replace SVG image of chess board (created by chess.svg.board()) with my own CSS-driven board, coupled with JavaScript
+front end that will allow the in-browser animation of incremental moves along a mainline path without a round trip to the
+server.
 * ❑ Add a concept of sessions
 * ❑ Add a user database
 * ❑ Add ability to upload a PGN
