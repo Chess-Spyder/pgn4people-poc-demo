@@ -123,6 +123,7 @@ VARTABLE_ANCHOR_PREFIX_CLOSE = '">'
 VARTABLE_ANCHOR_SUFFIX = '</a>'
 
 # Parameters for display of SVG chess board
+SVG_BOARD_USE_WEB_SERVICE = True
 SVG_BOARD_BASE_URL = "https://backscattering.de/web-boardimage/board.svg?"
 SVG_BOARD_THEME_PREFIX = "colors="
 SVG_BOARD_SIZE_PREFIX = "size="
@@ -139,6 +140,7 @@ SVG_BOARD_THEME_VALUE = "lichess-blue"
 SVG_BOARD_SIZE_VALUE = "500"
 SVG_BOARD_COORDINATES_BOOLEAN_VALUE = "true"
 SVG_BOARD_ORIENTATION_VALUE = "white"
+# SVG_BOARD_ORIENTATION_VALUE = "black"
 
 # Paramters for text-annotation area
 DEFAULT_WELCOME_TEXT_FOR_TEXT_ANNOTATION_AREA = "Welcome to pgn4people!"

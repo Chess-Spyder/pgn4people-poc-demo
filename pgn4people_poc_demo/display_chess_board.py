@@ -5,6 +5,9 @@ Module to display a chess board alongside the variations table.
 import logging
 
 import chess
+import chess.svg
+
+from pgn4people_poc_demo.error_processing import fatal_error_exit_without_traceback
 
 from . constants import (SVG_BOARD_BASE_URL,
                          SVG_BOARD_THEME_PREFIX,
@@ -17,7 +20,8 @@ from . constants import (SVG_BOARD_BASE_URL,
                          SVG_BOARD_THEME_VALUE,
                          SVG_BOARD_SIZE_VALUE,
                          SVG_BOARD_COORDINATES_BOOLEAN_VALUE,
-                         SVG_BOARD_ORIENTATION_VALUE
+                         SVG_BOARD_ORIENTATION_VALUE,
+                         SVG_BOARD_USE_WEB_SERVICE
                         )
 from . utilities import is_white_move
 
@@ -82,6 +86,47 @@ def compile_parameters_for_chessboard_svg(nodedict, node_id_for_board):
     return parameters_for_svg_chess_board
 
 
+def construct_svg_chessboard(parameters):
+    """
+    Construct SVG of chessboard using chess.svg.board method
+    """
+    board_from_fen = chess.Board(parameters.fen_value)
+
+    def orientation_for_chess_svg_board_from_player_color_string(player_color_string):
+        """
+        Converts player_color_string (e.g., “wHItE” or “blaCk”) to chess.WHITE
+        or chess.BLACK, respectively for use as the `orientation` argument to the
+        web-boardimage HTTP service <backscattering.de/web-boardimage> to
+        render chess board images.
+        """
+        lowercased_player_color_string = player_color_string.lower()
+        if lowercased_player_color_string == 'white':
+            orientation_value = chess.WHITE
+        elif lowercased_player_color_string == 'black':
+            orientation_value = chess.BLACK
+        else: 
+            fatal_error_exit_without_traceback(f"Unrecognized value for orientation: {player_color_string}")
+        
+        return orientation_value
+
+    orientation_value = orientation_for_chess_svg_board_from_player_color_string(parameters.board_orientation)
+
+    if parameters.do_highlight_last_move:
+        last_move_to_highlight = chess.Move.from_uci(parameters.last_move_as_uci)
+    else:
+        last_move_to_highlight = None
+
+    board_as_svg_string = chess.svg.board(board_from_fen,
+                                          size = parameters.board_size,
+                                          orientation = orientation_value,
+                                          coordinates = parameters.use_coordinates,
+                                          lastmove = last_move_to_highlight,
+                                          check = parameters.checked_king_square_name
+                                          )
+    
+    return board_as_svg_string
+
+
 # def form_url_for_chessboard_svg(nodedict, node_id_for_board):
 def form_url_for_chessboard_svg(parameters):
     """
@@ -93,10 +138,28 @@ def form_url_for_chessboard_svg(parameters):
     Returns URL
     """
 
+    def javascript_boolean_string_from_python_boolean(python_boolean):
+        return "true" if python_boolean else "false"
+    
+    use_coordinates_js = javascript_boolean_string_from_python_boolean(parameters.use_coordinates)
+
+    def SVG_orientation_backscattering_de_from_player_color_string(player_color_string):
+        """
+        Converts player_color_string (e.g., “wHItE” or “blaCk”) to “white” or
+        “black”, respectively, for use as the `orientation` argument to the
+        web-boardimage HTTP service <backscattering.de/web-boardimage> to
+        render chess board images.
+        """
+        lowercased_player_color_string = player_color_string.lower()
+        return lowercased_player_color_string
+    
+    orientation_value = SVG_orientation_backscattering_de_from_player_color_string(parameters.board_orientation)
+
     board_theme = SVG_BOARD_THEME_PREFIX + parameters.board_theme
-    board_orientation = SVG_BOARD_ORIENTATION_PREFIX + parameters.board_orientation
+    board_orientation = SVG_BOARD_ORIENTATION_PREFIX + orientation_value
     board_size = SVG_BOARD_SIZE_PREFIX + parameters.board_size
-    use_coordinates = SVG_BOARD_COORDINATES_BOOLEAN_PREFIX + parameters.use_coordinates
+    # use_coordinates = SVG_BOARD_COORDINATES_BOOLEAN_PREFIX + parameters.use_coordinates
+    use_coordinates = SVG_BOARD_COORDINATES_BOOLEAN_PREFIX + use_coordinates_js
     
     fen_string = SVG_BOARD_FEN_PREFIX + parameters.fen_value
 
@@ -167,3 +230,6 @@ class SVGChessBoardParameters():
                  self.last_move_as_uci = last_move_as_uci
                  self.king_is_in_check = king_is_in_check
                  self.checked_king_square_name = checked_king_square_name
+    
+
+

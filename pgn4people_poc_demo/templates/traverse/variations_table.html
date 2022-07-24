@@ -38,8 +38,10 @@
     <div class="repertoire-visualization-area chess-board-area">
         <div class="chessboard">
             <!-- <div class="chessboard-image"> -->
+                <!-- NOTE: As of 7/24/2022, I’ve replaced using the web service at backscattering.de with using chess.svg.board directly -->
                 <!-- <img class="chessboard-image" src="https://backscattering.de/web-boardimage/board.svg?fen=5r1k/1b4pp/3pB1N1/p2Pq2Q/PpP5/6PK/8/8&lastMove=f4g6&check=h8&colors=lichess-blue&size=500&coordinates=True&orientation=black"> -->
-                <img class="chessboard-image" src="{{ chessboard_url_to_fetch }}">
+                <!-- <img class="chessboard-image" src="{{ chessboard_url_to_fetch }}"> -->
+                {{ svg_string_for_board | safe }}
             <!-- </div> -->
         </div>
     </div>

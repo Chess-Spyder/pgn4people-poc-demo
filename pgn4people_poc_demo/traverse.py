@@ -16,6 +16,7 @@ from . build_tree import buildtree
 from . classes_arboreal import GameTreeReport
 from . import constants
 from . display_chess_board import compile_parameters_for_chessboard_svg
+from . display_chess_board import construct_svg_chessboard
 from . display_chess_board import form_url_for_chessboard_svg
 from . display_text_comments import extract_text_comments_for_current_node
 from . game_tree import characterize_gametree
@@ -61,8 +62,10 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_fr
     parameters_for_board_to_be_displayed = compile_parameters_for_chessboard_svg(nodedict, node_id_for_board)
     chessboard_fen = parameters_for_board_to_be_displayed.fen_value
 
+    # NOTE: As of 7/24/2022, I replaced using the web service at backscattering.de with directly using chess.svg.board
     # Gets URL for the downloadable SVG chess board
-    chessboard_url = form_url_for_chessboard_svg(parameters_for_board_to_be_displayed)
+    # chessboard_url = form_url_for_chessboard_svg(parameters_for_board_to_be_displayed)
+    board_as_svg_string = construct_svg_chessboard(parameters_for_board_to_be_displayed)
 
     # Gets pre- and post-comments for text-annotation area
     (movetext_string, precomment, postcomment) = extract_text_comments_for_current_node(nodedict, node_id_for_board)
@@ -77,7 +80,8 @@ def promote_node_to_main_line(target_node_id=0, node_id_for_board=0, redirect_fr
                            list_of_rows_for_variations_table = list_of_rows_for_variations_table,
                            welcome_display_classname = welcome_display_classname,
                            fenstring = chessboard_fen,
-                           chessboard_url_to_fetch = chessboard_url,
+                        #    chessboard_url_to_fetch = chessboard_url,
+                           svg_string_for_board = board_as_svg_string,
                            movetext_string = movetext_string,
                            pre_move_comment = precomment,
                            post_move_comment = postcomment)
