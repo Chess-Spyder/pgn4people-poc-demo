@@ -67,7 +67,12 @@
 
 /* Styles for site template */
 
-body {
+#pgn4people-project  {
+    /* Solves a specifity problem. An external style sheet was overriding the background color  */
+    background-color: var( --color-backround-page);
+  }
+
+body  {
     background-color: var( --color-backround-page);
   }
 
