@@ -14,6 +14,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet"> 
 
+    <!-- Block in header for additional insertions  -->
+    {% block additional_header_specification %}{% endblock additional_header_specification %}
+
     <div class = "site_logo"> <a href="/" class="site-logo"><img src="{{ url_for('static', filename='assets/images/PGN4people_alphabetic_logo.png') }}" alt="pgn4people alphabetic logo: Easier navigation of complex chess games and repertoires." /></a></div>
 </head>
 <body>
