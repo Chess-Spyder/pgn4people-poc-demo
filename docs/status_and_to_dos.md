@@ -1,5 +1,8 @@
 # Status and To-Dos
 
+* 7/24/2022, v.1.2.2
+    * Create new route `/experimental` as a test bed for the incorporation of [cm-chessboard](https://github.com/shaack/cm-chessboard)
+    * Begin incorporation of [cm-chessboard](https://github.com/shaack/cm-chessboard), implementing the simplest example [Simple chessboards, view only](https://shaack.com/projekte/cm-chessboard/examples/simple-boards.html), which has clearly exposed FEN strings. Should be a simple matter to replace chess.svg.board with this.
 * 7/24/2022, v.1.2.1 Dropped use of the web-boardimage HTTP service at backscattering.de for creating the SVG image of the chess board
 and instead now use chess.svg.board() directly instead.
 * 7/19/2022, v.1.2.0 Added graphical board, text-annotation area, FEN-string area, navigation of main line (in 

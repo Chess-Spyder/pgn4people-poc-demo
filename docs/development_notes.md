@@ -11,6 +11,18 @@ Directory structure, etc., adapted from the [Flask Tutorial](https://flask.palle
 Normally, I would adopt the `/src` directory structure (e.g., [Anthony Sottile’s explanation](https://www.youtube.com/watch?v=sW1qUZ_nSXk)), but as so much is unfamiliar to me about Flask, I strongly wanted to follow a clear, established roadmap. I haven’t found such a roadmap for Flask using the `/src` directory structure. Hence, I don’t adopt that layout here.
 
 # Routes
+
+<div class="warning" style='padding:0.1em; background-color:yellow; color:green'>
+<span>
+<p style='margin-top:1em; margin-left: 1em; text-align:left'>
+<b>WARNING: Must be updated</b></p>
+<p style='margin-left:1em;'>
+There is a new, experimental route: `/experimental`, to facilitate the development of incorporating the JavaScript chessboard [cm-chessboard](https://github.com/shaack/cm-chessboard).
+</p>
+<!-- <p style='margin-bottom:1em; margin-right:1em; text-align:right; font-family:Georgia'> <b>- Gary Provost</b> <i>(100 Ways to Improve Your Writing, 1985)</i> -->
+</p></span>
+</div>
+
 ## The root URL (`"/"`) is the only publicly exposed URL
 (For the sake of discussion, I’ll assume that the URL for this app will be `https://pgn4people.app`.)
 
