@@ -1,0 +1,44 @@
+{% extends "site_template.html" %}
+
+{% block page_title %}pgn4people: Experimental Laboratory{% endblock page_title %}
+
+{% block additional_header_specification %}
+
+<!-- <link rel="stylesheet" href="../assets/styles/cm-chessboard.css"/> -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/cm-chessboard.css') }}"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/cm-chessboard.css.map') }}"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/examples.css') }}"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/examples.css.map') }}"/>
+<!-- <script type="module" src="https://cdn.jsdelivr.net/npm/cm-chessboard@4.1/src/cm-chessboard/Chessboard.js"></script> -->
+
+{% endblock additional_header_specification %}
+
+{% block body_content %}
+
+<h1><a href="../">cm-chessboard</a></h1>
+<h2>Example: Simple chessboards, view only</h2>
+<div class="board" id="board1"></div>
+<div class="board" id="board2"></div>
+<br style="clear: both"/>
+
+<script type="module">
+    // import {COLOR, Chessboard} from "../src/cm-chessboard/Chessboard.js"
+    import {COLOR, Chessboard} from "https://cdn.jsdelivr.net/npm/cm-chessboard@4.1/src/cm-chessboard/Chessboard.js" ;
+
+
+    new Chessboard(document.getElementById("board1"), {
+        position: "start",
+        // sprite: {url: "../assets/images/chessboard-sprite-staunty.svg"},
+        sprite: {url: "{{url_for('static', filename='assets/images/chessboard-sprite-staunty.svg') }}"},
+    })
+    new Chessboard(document.getElementById("board2"), {
+        position: "rn2k1r1/ppp1pp1p/3p2p1/5bn1/P7/2N2B2/1PPPPP2/2BNK1RR w Gkq - 4 11",
+        // sprite: {url: "../assets/images/chessboard-sprite-staunty.svg"},
+        sprite: {url: "{{url_for('static', filename='assets/images/chessboard-sprite-staunty.svg') }}"},
+        orientation: COLOR.black
+    })
+</script>
+</body>
+
+
+{% endblock body_content %}

@@ -6,6 +6,7 @@ from flask import render_template
 from . constants import (LOGGING_LEVEL,
                          LOG_FILE_NAME,
                          LOGGING_FORMAT)
+from . import experimental
 from . import traverse
 
 
@@ -37,5 +38,6 @@ def create_app(test_config=None):
 
    
     app.register_blueprint(traverse.blueprint)
+    app.register_blueprint(experimental.blueprint)
 
     return app
