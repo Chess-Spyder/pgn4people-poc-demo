@@ -43,7 +43,7 @@ class GameNode:
         "fen":
             "FEN of chess position that corresponds to this node.",
         "choice_id_at_originatingnode":
-            "index of edge within  originating node’s .edgeslist that led to this node",
+            "index of edge within the originating node’s .edgeslist that led to this node",
         "edgeslist":
             "List of edges (of class Edge) attached to this node. (Compiled incrementally as PGN is parsed.)",
         "number_of_edges":
