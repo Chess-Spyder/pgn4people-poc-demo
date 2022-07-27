@@ -22,4 +22,4 @@ https://stackoverflow.com/questions/72357031/set-version-of-module-from-a-file-w
 """
 
 
-__version__ = '1.2.2'
+__version__ = '1.2.3'
