@@ -1,5 +1,9 @@
 # Status and To-Dos
 
+* 7/26/2022, v.1.2.3
+    * Replaced chess.svg.board() to render the chess board on the variations-table page with [cm-chessboard](https://github.com/shaack/cm-chessboard)
+        
+
 * 7/24/2022, v.1.2.2
     * Create new route `/experimental` as a test bed for the incorporation of [cm-chessboard](https://github.com/shaack/cm-chessboard)
     * Begin incorporation of [cm-chessboard](https://github.com/shaack/cm-chessboard), implementing the simplest example [Simple chessboards, view only](https://shaack.com/projekte/cm-chessboard/examples/simple-boards.html), which has clearly exposed FEN strings. Should be a simple matter to replace chess.svg.board with this.
