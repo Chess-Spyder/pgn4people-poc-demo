@@ -2,6 +2,14 @@
 
 {% block page_title %}pgn4people: Variations Table{% endblock page_title %}
 
+{% block additional_header_specification %}
+
+<!-- <link rel="stylesheet" href="../assets/styles/cm-chessboard.css"/> -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/cm-chessboard.css') }}"/>
+<link rel="stylesheet" href="{{url_for('static', filename='css/cm-chessboard.css.map') }}"/>
+
+{% endblock additional_header_specification %}
+
 
 {% block body_content %}
 
@@ -41,7 +49,16 @@
                 <!-- NOTE: As of 7/24/2022, I’ve replaced using the web service at backscattering.de with using chess.svg.board directly -->
                 <!-- <img class="chessboard-image" src="https://backscattering.de/web-boardimage/board.svg?fen=5r1k/1b4pp/3pB1N1/p2Pq2Q/PpP5/6PK/8/8&lastMove=f4g6&check=h8&colors=lichess-blue&size=500&coordinates=True&orientation=black"> -->
                 <!-- <img class="chessboard-image" src="{{ chessboard_url_to_fetch }}"> -->
-                {{ svg_string_for_board | safe }}
+
+                <!-- The following is for use with chess.svg.board() -->
+                <!-- {{ svg_string_for_board | safe }} -->
+
+                <!-- Note: As of 7/26/2022, I've replaced chess.svg.board() with cm-chessboard
+                https://github.com/shaack/cm-chessboard                 -->
+                <!-- The below is the div into which cm-chessboard presents a chessboard -->
+                <!-- Note that class="board" references a class in cm-chessboard.css -->
+                <div class="board" id="displayed-board-area"></div>
+
             <!-- </div> -->
         </div>
     </div>
@@ -64,5 +81,25 @@
         <p>{{ fenstring  }}</p>
     </div>
 </div>
+
+<script type="module">
+    // import {COLOR, Chessboard} from "../src/cm-chessboard/Chessboard.js"
+    import {COLOR, Chessboard, BORDER_TYPE} from "https://cdn.jsdelivr.net/npm/cm-chessboard@4.1/src/cm-chessboard/Chessboard.js" ;
+
+    new Chessboard(document.getElementById("displayed-board-area"), {
+        // position: "rn2k1r1/ppp1pp1p/3p2p1/5bn1/P7/2N2B2/1PPPPP2/2BNK1RR w Gkq - 4 11",
+        position: "{{ fenstring  }}",
+        style: {
+            cssClass: "green",
+            // borderType: BORDER_TYPE.none,
+            // borderType: BORDER_TYPE.thin,
+            borderType: BORDER_TYPE.frame,
+        },
+        // sprite: {url: "../assets/images/chessboard-sprite-staunty.svg"},
+        // sprite: {url: "{{url_for('static', filename='assets/images/chessboard-sprite-staunty.svg') }}"},
+        sprite: {url: "{{url_for('static', filename='assets/images/chessboard-sprite.svg') }}", cache: false},
+        // orientation: COLOR.black,
+    })
+</script>
 
 {% endblock body_content %}
