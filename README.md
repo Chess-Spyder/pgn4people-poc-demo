@@ -18,22 +18,17 @@ export FLASK_APP=pgn4people_poc_demo
 ```
 
 ## Version History
-* 1.0.0, 7/6/2022
-    * Initial release
-    * Launched on PythonAnywhere at the URL [pgn4people.app](https://www.pgn4people.app/).
 * 1.2.0, 7/19/2022
     * Now chess aware thanks to incorporation of Niklas Fiekas’s awesome [python-chess](https://github.com/niklasf/python-chess) library.
     * Navigating the PGN now updates a graphic chess board, thanks to Niklas Fiekas’s [web-boardimage](https://github.com/niklasf/web-boardimage), and associated [web service](https://backscattering.de/web-boardimage/board.svg?fen=5r1k/1b4pp/3pB1N1/p2Pq2Q/PpP5/6PK/8/8&lastMove=f4g6&check=h8&arrows=Ge6g8,Bh7&squares=a3,c3).
     * Add a FEN string text area.
     * Add text-annotation area.
     * Change license for the project as a whole from MIT to GNU GPL 3, because of the reliance on python-chess.
-<!--
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
--->
+    * Deployed to PythonAnywhere at the URL [pgn4people.app](https://www.pgn4people.app/).
+* 1.0.0, 7/6/2022
+    * Initial release
+    * Launched on PythonAnywhere at the URL [pgn4people.app](https://www.pgn4people.app/).
+
 ## License
 
 This project as a whole is licensed under GNU General Public License, Version 3. Any portions of the code in this project that do not require python-chess remain available under the MIT License. See the LICENSE.md file for details.
