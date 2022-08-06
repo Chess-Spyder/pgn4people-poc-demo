@@ -36,4 +36,4 @@ export FLASK_APP=pgn4people_poc_demo
 -->
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+This project as a whole is licensed under GNU General Public License, Version 3. Any portions of the code in this project that do not require python-chess remain available under the MIT License. See the LICENSE.md file for details.
